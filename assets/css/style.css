@@ -8,22 +8,33 @@ body {
 
 #page-container {
     display: grid;
-    grid-template-rows: repeat(5, 100px);
-    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: 50px 25px 210px 90px repeat(2, 210px);
+    grid-template-columns: 100%;
 }
 
 .grid-item {
     display: grid;
     background-color: red;
     border: 1px solid yellow;
+    grid-column: 1;  
 }
 
 .grid-item-1 {
-    grid-column: 1 / 6;
+    grid-column: 1;
 }
 
 #page-title {
     font-family: 'Bebas Neue', cursive;
-    font-size: 50px;
+    font-size: 30px;
+    margin: auto;
+}
+
+.grid-item-2 {
+    grid-column: 1;    
+}
+
+.grid-item-2 p {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1rem;
     margin: auto;
 }
