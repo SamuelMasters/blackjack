@@ -1,3 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans+Condensed:wght@300;700&display=swap');
+
 body {
     background-color: darkolivegreen;
+    margin: 0;
+    padding: 0;
+}
+
+#page-container {
+    display: grid;
+    grid-template-rows: repeat(5, 100px);
+    grid-template-columns: repeat(5, 20%);
+}
+
+.grid-item {
+    display: grid;
+    background-color: red;
+    border: 1px solid yellow;
+}
+
+.grid-item-1 {
+    grid-column: 1 / 6;
+}
+
+#page-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 50px;
+    margin: auto;
 }
