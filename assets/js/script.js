@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Generate a full deck of 52 'cards' / values
+// Consider putting this in a function to allow for repeated resets after each game
 let cardDeck = [];
 let values = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "king", "queen"];
 for (let i = 0; i < values.length; i++) {
@@ -18,6 +19,17 @@ for (let i = 0; i < values.length; i++) {
 
 function startGame() {
 
+}
+
+/**
+ * Generates a random index within the cardDeck array, removes
+ * it from the array, and then returns it as randomCard variable
+ */
+function chooseRandomCard() {
+    let randomIndex = Math.floor(Math.random() * cardDeck.length + 1);
+    let randomCard = cardDeck[randomIndex];
+    cardDeck.splice(randomIndex, 1);
+    return randomCard;
 }
 
 /**
