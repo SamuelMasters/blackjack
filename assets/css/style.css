@@ -19,6 +19,10 @@ body {
     grid-column: 1;  
 }
 
+.grid-item p, .grid-item h2, .grid-item h3 {
+    margin: auto;
+}
+
 .grid-item-1 {
     grid-column: 1;
 }
