@@ -1,5 +1,5 @@
 // Setup initial event listeners for player buttons
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let hitButton = document.getElementById('hit-button');
     let standButton = document.getElementById('stand-button');
     hitButton.addEventListener('click', hit);
@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let computerPlayedCards = [];
 let humanPlayedCards = [];
+let turnOwner = '';
 
 // Generate a full deck of 52 'cards' / values
 // Consider putting this in a function to allow for repeated resets after each game
@@ -21,7 +22,7 @@ for (let i = 0; i < values.length; i++) {
 }
 
 function startGame() {
-
+    dealStartingCards();
 }
 
 /**
@@ -36,9 +37,9 @@ function chooseRandomCard() {
 }
 
 /**
- * Takes two random values from cardDeck array and
+ * Takes four random values from cardDeck array and
  * moves them to computerPlayedCards and
- * humanPlayedCards arrays
+ * humanPlayedCards arrays (two each)
  */
 function dealStartingCards() {
     let activeCard = chooseRandomCard();
@@ -59,7 +60,34 @@ function dealCard() {
 
 }
 
+/**
+ * Calculates total of card values in CPU and player hands. 
+ * Evaluates hand totals, if either exceeds 21, then they 'bust' and lose. 
+ */
 function evaluateCards() {
+    if (turnOwner === 'computer') {
+        for (let i = 0; i < computerPlayedCards.length; i++) {
+            if (typeof computerPlayedCards[i] === 'string') { // this will need to change to account for 'ace'
+                computerPlayedCards[i] = 10;
+            }
+        }
+        computerTotal = computerPlayedCards.reduce(function(a, b) {
+            return a + b;
+        }, 0);
+        return computerTotal;
+    } else if (turnOwner === 'player') {
+        for (let i = 0; i < humanPlayedCards.length; i++) {
+            if (typeof humanPlayedCards[i] === 'string') { // this will need to change to account for 'ace'
+                humanPlayedCards[i] = 10;
+            }
+        }
+        playerTotal = humanPlayedCards.reduce(function(a, b) {
+            return a + b;
+        }, 0);
+        return playerTotal;
+    } else {
+        throw 'turnOwner variable is invalid!';
+    }
 
 }
 
@@ -76,7 +104,7 @@ function hit() {
 }
 
 function drawCard() {
-
+    let activeCard = chooseRandomCard();
 }
 
 let computerTotal = '';
