@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
     standButton.addEventListener('click', stand);
 });
 
+let computerPlayedCards = [];
+let humanPlayedCards = [];
+
 // Generate a full deck of 52 'cards' / values
 // Consider putting this in a function to allow for repeated resets after each game
 let cardDeck = [];
@@ -38,7 +41,14 @@ function chooseRandomCard() {
  * humanPlayedCards arrays
  */
 function dealStartingCards() {
-
+    let activeCard = chooseRandomCard();
+    computerPlayedCards.push(activeCard);
+    activeCard = chooseRandomCard();
+    humanPlayedCards.push(activeCard);
+    activeCard = chooseRandomCard();
+    computerPlayedCards.push(activeCard);
+    activeCard = chooseRandomCard();
+    humanPlayedCards.push(activeCard);
 }
 
 function computerTurn() {
@@ -74,5 +84,3 @@ let playerTotal = '';
 let cardInPlay = '';
 let computerScore = '';
 let playerScore = '';
-let computerPlayedCards = [];
-let humanPlayedCards = [];
