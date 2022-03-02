@@ -6,11 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
     standButton.addEventListener('click', stand);
 });
 
-let computerPlayedCards = [];
-let humanPlayedCards = [];
-let turnOwner = '';
+let computerPlayedCards = []; // contains all cards dealth to computer in current round
+let humanPlayedCards = []; // contains all cards dealt to player in current round
+let turnOwner = ''; // indicates who the current turn belongs to
 let computerTotal = 0;
 let playerTotal = 0;
+let riskValue = ''; // this value will range from 0 - 1, increasing as the computer total approaches 21
+let computerScore = 0;
+let playerScore = 0;
 
 // Generate a full deck of 52 'cards' / values
 // Consider putting this in a function to allow for repeated resets after each game
@@ -64,6 +67,8 @@ function dealStartingCards() {
     computerPlayedCards.push(activeCard);
     activeCard = chooseRandomCard();
     humanPlayedCards.push(activeCard);
+    document.getElementById('player-cards').innerText = `[${humanPlayedCards}]`;
+    document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
 }
 
 /**
@@ -105,15 +110,17 @@ function evaluateCards() {
     if (turnOwner === 'computer') {
         for (let i = 0; i < computerPlayedCards.length; i++) {
             if (typeof computerPlayedCards[i] === 'string') { // this will need to change to account for 'ace'
-                computerPlayedCards[i] = 10;
+                computerPlayedCards[i] = 10; // explicitly changes 'royal' cards to a value of 10
             }
         }
         computerTotal = computerPlayedCards.reduce(function(a, b) {
             return a + b;
         }, 0);
+        document.getElementById('computer-total').innerText = `${computerTotal}`;
         if (computerTotal > 21) {
             console.log("The computer has gone bust!");
             playerScore++;
+            document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
         }
         return computerTotal;
         
@@ -126,9 +133,11 @@ function evaluateCards() {
         playerTotal = humanPlayedCards.reduce(function(a, b) {
             return a + b;
         }, 0);
+        document.getElementById('player-total').innerText = `${playerTotal}`;
         if (playerTotal > 21) {
             console.log("You've gone bust!");
             computerScore++;
+            document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
         }
         return playerTotal;
     } else {
@@ -197,12 +206,12 @@ function evaluateRisk() {
 function switchTurn() {
     if (turnOwner === 'computer') {
         turnOwner = 'player';
+        document.getElementById('turn-reminder').style.visibility = 'visible';
     } else {
         turnOwner === 'computer';
+        document.getElementById('turn-reminder').style.visibility = 'hidden';
     }
 }
 
 let cardInPlay = '';
-let computerScore = '';
-let playerScore = '';
-let riskValue = ''; // this value will range from 0 - 1, increasing as the computer total approaches 21
+
