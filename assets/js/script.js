@@ -109,7 +109,10 @@ function dealCard() {
 function evaluateCards() {
     if (turnOwner === 'computer') {
         for (let i = 0; i < computerPlayedCards.length; i++) {
-            if (typeof computerPlayedCards[i] === 'string') { // this will need to change to account for 'ace'
+            if (computerPlayedCards.includes('ace')) {
+                handleAce(); // evaluates how to play an ace 
+            }
+            if (typeof computerPlayedCards[i] === 'string' && computerPlayedCards[i] != 'ace') {
                 computerPlayedCards[i] = 10; // explicitly changes 'royal' cards to a value of 10
             }
         }
@@ -126,7 +129,7 @@ function evaluateCards() {
         
     } else if (turnOwner === 'player') {
         for (let i = 0; i < humanPlayedCards.length; i++) {
-            if (typeof humanPlayedCards[i] === 'string') { // this will need to change to account for 'ace'
+            if (typeof humanPlayedCards[i] === 'string' && humanPlayedCards[i] != 'ace') { 
                 humanPlayedCards[i] = 10;
             }
         }
@@ -210,6 +213,22 @@ function switchTurn() {
     } else {
         turnOwner === 'computer';
         document.getElementById('turn-reminder').style.visibility = 'hidden';
+    }
+}
+
+/**
+ * Evaluates the computerTotal variable, and decides the played
+ * value of an ace based on the value returned. 
+ */
+function handleAce() {
+    if (turnOwner === 'computer' && computerPlayedCards.includes('ace')) {
+        if (computerTotal < 12) {
+            i = computerPlayedCards.indexOf('ace'); 
+            computerPlayedCards[i] = 10;
+        } else {
+            i = computerPlayedCards.indexOf('ace'); 
+            computerPlayedCards[i] = 1;
+        }
     }
 }
 
