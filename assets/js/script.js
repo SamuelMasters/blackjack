@@ -52,7 +52,7 @@ function resetVariables() {
     playerTotal = 0;
     document.getElementById('player-total').innerText = playerTotal;
     turnOwner = '';
-    riskValue = 0;
+    // riskValue = 0;
     playerStood = false;
     computerStood = false;
 }
@@ -64,6 +64,7 @@ function startGame() {
     dealStartingCards();
     determineStartingPlayer();
     evaluateCards();
+    evaluateRisk(computerTotal);
 }
 
 /**
@@ -100,10 +101,10 @@ function dealStartingCards() {
  * riskValue variable, and hits or stands accordingly. 
  */
 function computerTurn() {
-    evaluateRisk();
+    evaluateRisk(computerTotal);
     if (Math.random() > riskValue) {
         hit();
-    } else if ((playerTotal < computerTotal) === true && Math.random() < riskValue) { // need to prevent computer from standing when playerTotal > computerTotal
+    } else if ((playerTotal < computerTotal) === true && Math.random() < riskValue) {
         stand();
     } else {
         hit();
@@ -123,7 +124,7 @@ function dealCard() {
     } else if (turnOwner === 'computer') {
         computerPlayedCards.push(chooseRandomCard());
         evaluateCards();
-        evaluateRisk();
+        evaluateRisk(computerTotal);
         document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
     } else {
         throw 'turnOwner variable is invalid! [dealCard() function]';
@@ -223,6 +224,7 @@ function determineStartingPlayer() {
         return turnOwner;
     } else if (randomNum > 0.5) {
         turnOwner = 'player';
+        document.getElementById('turn-reminder').style.visibility = 'visible';
         return turnOwner;
     } else {
         throw 'Invalid conditional value for randomNum variable! [determineStartingPlayer()] function';
@@ -233,45 +235,52 @@ function stand() {
     alert("The 'stand' button was pressed!");
     if (turnOwner === 'computer') {
         computerStood = true;
-        switchTurn();
+        switchTurn(turnOwner);
     } else if (turnOwner === 'player') {
         playerStood = true;
-        switchTurn();
+        switchTurn(turnOwner);
     } else if (computerStood === true && playerStood === true) {
         evaluateWinner();
     } else {
         throw 'Invalid turnOwner value within [stand()] function.';
     }
-    switchTurn();
+    switchTurn(turnOwner);
     // how is this handled if both players have now stood? 
 }
 
 function hit() {
     alert("The 'hit' button was pressed!");
     dealCard();
-    switchTurn();
+    switchTurn(turnOwner);
+    if (playerTotal === 21 && computerStood === true) {
+        playerStood = true;
+        evaluateWinner();
+    } else if (computerTotal === 21 && playerStood === true) {
+        computerStood = true;
+        evaluateWinner();
+    }
 }
 
-function drawCard() {
-    let activeCard = chooseRandomCard();
-}
+// function drawCard() {
+//     let activeCard = chooseRandomCard();
+// }
 
 /**
  * Changes the riskValue variable depending how close the computerTotal
  * variable is to 21. 
  */
-function evaluateRisk() {
+function evaluateRisk(computerTotal) {
     if (turnOwner === 'computer') {
         if (computerTotal < 10) {
-            riskValue = 0.2;
+            riskValue = 0.05;
         } else if (computerTotal < 13) {
-            riskValue = 0.3;
+            riskValue = 0.15;
         } else if (computerTotal < 15) {
-            riskValue = 0.6;
+            riskValue = 0.25;
         } else if (computerTotal <= 17) {
-            riskValue = 0.8;
+            riskValue = 0.85;
         } else if (computerTotal > 18) {
-            riskValue = 0.99;
+            riskValue = 0.95;
         } else {
             throw 'No condition matched [evaluateRisk()] function for riskValue assignment.';
         }
@@ -281,7 +290,7 @@ function evaluateRisk() {
 /**
  * Swaps the value of the turnOwner variable to the other player. 
  */
-function switchTurn() {
+function switchTurn(turnOwner) {
     if (turnOwner === 'computer' && playerStood === false) {
         turnOwner = 'player';
         document.getElementById('turn-reminder').style.visibility = 'visible';
@@ -317,12 +326,12 @@ let cardInPlay = '';
  */
 function evaluateWinner() {
     if (playerStood === true && computerStood === true) {
-        if (playerTotal > computerTotal) {
+        if (playerTotal > computerTotal && playerTotal < 22) {
             playerScore++;
             document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
             console.log('You won the round!');
             // start a new game here
-        } else if (playerTotal < computerTotal) {
+        } else if (playerTotal < computerTotal && computerTotal < 22) {
             computerScore++;
             document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
             console.log('The computer won the round!');
