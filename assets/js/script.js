@@ -12,7 +12,7 @@ let turnOwner = ''; // indicates who the current turn belongs to
 let computerTotal = 0; // the total of the computer's hand
 let playerTotal = 0; // the total of the player's hand
 let riskValue = 0; // this value will range from 0 - 1, increasing as the computer total approaches 21
-let computerScore = 0; 
+let computerScore = 0;
 let playerScore = 0;
 let playerStood = false; // indicates whether the player has stood down
 let computerStood = false; // indicates whether the computer has stood down
@@ -40,13 +40,17 @@ function resetCardDeck() {
 
 /**
  * Resets key variables to their unedited state, for use at the 
- * start of each new round. 
+ * start of each new round, and resets game interface (except score).  
  */
 function resetVariables() {
     computerPlayedCards = [];
+    document.getElementById('computer-cards').innerText = '[]';
     humanPlayedCards = [];
+    document.getElementById('player-cards').innerText = '[]';
     computerTotal = 0;
+    document.getElementById('computer-total').innerText = computerTotal;
     playerTotal = 0;
+    document.getElementById('player-total').innerText = playerTotal;
     turnOwner = '';
     riskValue = 0;
     playerStood = false;
@@ -55,6 +59,7 @@ function resetVariables() {
 
 
 function startGame() {
+    resetVariables();
     resetCardDeck();
     dealStartingCards();
     determineStartingPlayer();
@@ -66,7 +71,7 @@ function startGame() {
  * it from the array, and then returns it as randomCard variable
  */
 function chooseRandomCard() {
-    let randomIndex = Math.floor(Math.random() * cardDeck.length + 1);
+    let randomIndex = Math.floor(Math.random() * cardDeck.length); // does the +1 need to be here? this sometimes gives an undefined value to hands
     let randomCard = cardDeck[randomIndex];
     cardDeck.splice(randomIndex, 1);
     return randomCard;
@@ -98,8 +103,10 @@ function computerTurn() {
     evaluateRisk();
     if (Math.random() > riskValue) {
         hit();
-    } else {
+    } else if ((playerTotal < computerTotal) === true && Math.random() < riskValue) { // need to prevent computer from standing when playerTotal > computerTotal
         stand();
+    } else {
+        hit();
     }
 }
 
@@ -124,53 +131,81 @@ function dealCard() {
 }
 
 /**
- * Calculates total of card values in CPU and player hands. 
- * Evaluates hand totals, if either exceeds 21, then they 'bust' and lose. 
+ * Calculates the total of the computers's hand, updates player score if 
+ * computer's hand exceeds 21 ('bust'). 
  */
-function evaluateCards() {
-    if (turnOwner === 'computer') {
-        for (let i = 0; i < computerPlayedCards.length; i++) {
-            if (computerPlayedCards.includes('ace')) {
-                handleAce(); // evaluates how to play an ace automatically to simulate the appearance of strategy
-            } else if (typeof computerPlayedCards[i] === 'string' && computerPlayedCards[i] != 'ace') {
-                computerPlayedCards[i] = 10; // explicitly changes 'royal' cards to a value of 10
-            }
-        }
-        computerTotal = computerPlayedCards.reduce(function(a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
-            return a + b; // sums the numerical values of PlayedCards arrays
-        }, 0);
-        document.getElementById('computer-total').innerText = `${computerTotal}`;
-        if (computerTotal > 21) {
-            console.log("The computer has gone bust!");
-            playerScore++;
-            document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
-            // begin a new round here
-        }
-        return computerTotal;
-        
-    } else if (turnOwner === 'player') {
-        for (let i = 0; i < humanPlayedCards.length; i++) {
-            if (humanPlayedCards.includes('ace')) {
-                // insert code here to allow player to decide what to do with an ace
-            } else if (typeof humanPlayedCards[i] === 'string' && humanPlayedCards[i] != 'ace') { 
-                humanPlayedCards[i] = 10;
-            }
-        }
-        playerTotal = humanPlayedCards.reduce(function(a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
-            return a + b; // sums the numerical values of PlayedCards arrays
-        }, 0);
-        document.getElementById('player-total').innerText = `${playerTotal}`;
-        if (playerTotal > 21) {
-            console.log("You've gone bust!");
-            computerScore++;
-            document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
-            // begin a new round here
-        }
-        return playerTotal;
-    } else {
-        throw 'turnOwner variable is invalid! [evaluateCards() function]';
+function evaluateComputerTotal() {
+    convertRoyals(); // converts 'royal' cards to a numerical value of 10
+
+    computerTotal = computerPlayedCards.reduce(function (a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
+        return a + b; // sums the numerical values of PlayedCards arrays
+    }, 0);
+
+    handleAce();
+
+    document.getElementById('computer-total').innerText = `${computerTotal}`; // updates the hand total value on game interface
+
+    // checks if the computer has gone bust
+    if (computerTotal > 21) {
+        console.log("The computer has gone bust!");
+        playerScore++;
+        document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
+        // begin a new round here
     }
 
+    return computerTotal;
+}
+
+/**
+ * Calculates the total of the player's hand, updates computer score if 
+ * player's hand exceeds 21 ('bust'). 
+ */
+function evaluatePlayerTotal() {
+    convertRoyals();
+
+    playerTotal = humanPlayedCards.reduce(function (a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
+        return a + b; // sums the numerical values of PlayedCards arrays
+    }, 0);
+    document.getElementById('player-total').innerText = `${playerTotal}`; // updates the hand total value on game interface
+    if (playerTotal > 21) {
+        console.log("You've gone bust!");
+        computerScore++;
+        computerStood = true;
+        playerStood = true;
+        document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
+        // begin a new round here
+    }
+    return playerTotal;
+}
+
+/**
+ * Allows for separate, simultaneous calculation and updating of 
+ * player and computer hand totals.
+ */
+function evaluateCards() {
+    evaluateComputerTotal();
+    evaluatePlayerTotal();
+}
+
+/**
+ * Looks for 'royal' cards in player and computer hands, and converts
+ * them to the numerical value of 10. 
+ */
+function convertRoyals() {
+    for (let i = 0; i < computerPlayedCards.length; i++) {
+        if (computerPlayedCards.includes('ace')) {
+            handleAce(); // evaluates how to play an ace automatically to simulate the appearance of strategy
+        } else if (typeof computerPlayedCards[i] === 'string' && computerPlayedCards[i] != 'ace') {
+            computerPlayedCards[i] = 10; // explicitly changes 'royal' cards to a value of 10
+        }
+    }
+    for (let i = 0; i < humanPlayedCards.length; i++) {
+        if (humanPlayedCards.includes('ace')) {
+            // insert code here to allow player to decide what to do with an ace
+        } else if (typeof humanPlayedCards[i] === 'string' && humanPlayedCards[i] != 'ace') {
+            humanPlayedCards[i] = 10;
+        }
+    }
 }
 
 function playerTurn() {
@@ -185,8 +220,10 @@ function determineStartingPlayer() {
     let randomNum = Math.random();
     if (randomNum < 0.5) {
         turnOwner = 'computer';
+        return turnOwner;
     } else if (randomNum > 0.5) {
         turnOwner = 'player';
+        return turnOwner;
     } else {
         throw 'Invalid conditional value for randomNum variable! [determineStartingPlayer()] function';
     }
@@ -231,7 +268,7 @@ function evaluateRisk() {
             riskValue = 0.3;
         } else if (computerTotal < 15) {
             riskValue = 0.6;
-        } else if (computerTotal < 17) {
+        } else if (computerTotal <= 17) {
             riskValue = 0.8;
         } else if (computerTotal > 18) {
             riskValue = 0.99;
@@ -248,7 +285,7 @@ function switchTurn() {
     if (turnOwner === 'computer' && playerStood === false) {
         turnOwner = 'player';
         document.getElementById('turn-reminder').style.visibility = 'visible';
-    } else if (turnOwner ==='player' && computerStood === false) {
+    } else if (turnOwner === 'player' && computerStood === false) {
         turnOwner === 'computer';
         document.getElementById('turn-reminder').style.visibility = 'hidden';
     } else {
@@ -263,10 +300,10 @@ function switchTurn() {
 function handleAce() {
     if (turnOwner === 'computer' && computerPlayedCards.includes('ace')) {
         if (computerTotal < 12) {
-            i = computerPlayedCards.indexOf('ace'); 
+            i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 10;
         } else {
-            i = computerPlayedCards.indexOf('ace'); 
+            i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 1;
         }
     }
@@ -279,19 +316,20 @@ let cardInPlay = '';
  * have stood, and assigns a winner.
  */
 function evaluateWinner() {
-    if (playerTotal > computerTotal) {
-        playerScore++;
-        document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
-        console.log('You won the round!');
-        // start a new game here
-    } else if (playerTotal < computerTotal) {
-        computerScore++;
-        document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
-        console.log('The computer won the round!');
-        // start a new game here
-    } else {
-        console.log("It's a tie!");
-        // start a new game here
+    if (playerStood === true && computerStood === true) {
+        if (playerTotal > computerTotal) {
+            playerScore++;
+            document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
+            console.log('You won the round!');
+            // start a new game here
+        } else if (playerTotal < computerTotal) {
+            computerScore++;
+            document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
+            console.log('The computer won the round!');
+            // start a new game here
+        } else {
+            console.log("It's a tie!");
+            // start a new game here
+        }
     }
-
 }
