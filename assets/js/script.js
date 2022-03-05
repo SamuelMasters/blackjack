@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 let computerPlayedCards = []; // contains all cards dealth to computer in current round
 let humanPlayedCards = []; // contains all cards dealt to player in current round
-let turnOwner = ''; // indicates who the current turn belongs to
+let turnOwner = undefined; // indicates who the current turn belongs to
 let computerTotal = 0; // the total of the computer's hand
 let playerTotal = 0; // the total of the player's hand
 let riskValue = 0; // this value will range from 0 - 1, increasing as the computer total approaches 21
@@ -21,6 +21,16 @@ let computerStood = false; // indicates whether the computer has stood down
 // Consider putting this in a function to allow for repeated resets after each game
 let cardDeck = [];
 let values = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "king", "queen"];
+
+function logVariables() {
+    console.log('Cards remaining: ' + cardDeck.length);
+    console.log('Whose turn is it? ' + turnOwner);
+    console.log('Computer Total: ' + computerTotal);
+    console.log('Player Total: ' + playerTotal);
+    console.log('Risk Value: ' + riskValue);
+    console.log('Player stood? ' + playerStood);
+    console.log('Computer stood? ' + computerStood);
+}
 
 /**
  * Resets the cardDeck variable to an empty array, then generates a new set
@@ -62,9 +72,13 @@ function startGame() {
     resetVariables();
     resetCardDeck();
     dealStartingCards();
-    determineStartingPlayer();
+    // determineStartingPlayer();
     evaluateCards();
-    evaluateRisk(computerTotal);
+    evaluateRisk();
+    // if (turnOwner === 'computer') {
+    //     computerTurn();
+    // }
+    turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
 }
 
 /**
@@ -101,7 +115,7 @@ function dealStartingCards() {
  * riskValue variable, and hits or stands accordingly. 
  */
 function computerTurn() {
-    evaluateRisk(computerTotal);
+    evaluateRisk();
     if (Math.random() > riskValue) {
         hit();
     } else if ((playerTotal < computerTotal) === true && Math.random() < riskValue) {
@@ -124,7 +138,7 @@ function dealCard() {
     } else if (turnOwner === 'computer') {
         computerPlayedCards.push(chooseRandomCard());
         evaluateCards();
-        evaluateRisk(computerTotal);
+        evaluateRisk();
         document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
     } else {
         throw 'turnOwner variable is invalid! [dealCard() function]';
@@ -221,11 +235,9 @@ function determineStartingPlayer() {
     let randomNum = Math.random();
     if (randomNum < 0.5) {
         turnOwner = 'computer';
-        return turnOwner;
     } else if (randomNum > 0.5) {
         turnOwner = 'player';
         document.getElementById('turn-reminder').style.visibility = 'visible';
-        return turnOwner;
     } else {
         throw 'Invalid conditional value for randomNum variable! [determineStartingPlayer()] function';
     }
@@ -235,23 +247,22 @@ function stand() {
     alert("The 'stand' button was pressed!");
     if (turnOwner === 'computer') {
         computerStood = true;
-        switchTurn(turnOwner);
+        switchTurn();
     } else if (turnOwner === 'player') {
         playerStood = true;
-        switchTurn(turnOwner);
+        switchTurn();
     } else if (computerStood === true && playerStood === true) {
         evaluateWinner();
     } else {
         throw 'Invalid turnOwner value within [stand()] function.';
     }
-    switchTurn(turnOwner);
     // how is this handled if both players have now stood? 
 }
 
 function hit() {
     alert("The 'hit' button was pressed!");
     dealCard();
-    switchTurn(turnOwner);
+    switchTurn();
     if (playerTotal === 21 && computerStood === true) {
         playerStood = true;
         evaluateWinner();
@@ -269,7 +280,7 @@ function hit() {
  * Changes the riskValue variable depending how close the computerTotal
  * variable is to 21. 
  */
-function evaluateRisk(computerTotal) {
+function evaluateRisk() {
     if (turnOwner === 'computer') {
         if (computerTotal < 10) {
             riskValue = 0.05;
@@ -290,13 +301,18 @@ function evaluateRisk(computerTotal) {
 /**
  * Swaps the value of the turnOwner variable to the other player. 
  */
-function switchTurn(turnOwner) {
+function switchTurn() {
     if (turnOwner === 'computer' && playerStood === false) {
         turnOwner = 'player';
         document.getElementById('turn-reminder').style.visibility = 'visible';
+        console.log(`The condition to change the turnOwner variable to "player" was matched. turnOwner = ${turnOwner}`);
     } else if (turnOwner === 'player' && computerStood === false) {
-        turnOwner === 'computer';
+        turnOwner = 'computer'; // this line is not executing correctly!
+        console.log(`The condition to change the turnOwner variable to 'computer' was matched. turnOwner = ${turnOwner}`);
         document.getElementById('turn-reminder').style.visibility = 'hidden';
+        if (turnOwner === 'player') {
+            throw 'turnOwner was not reassigned to computer as expected!';
+        }
     } else {
         evaluateWinner();
     }
