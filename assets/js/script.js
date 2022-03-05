@@ -75,12 +75,15 @@ function startGame() {
     resetCardDeck();
     dealStartingCards();
     // determineStartingPlayer();
+    turnOwner = 'computer';
+    handleAce();
+    turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
+    handleAce();
     evaluateCards();
     evaluateRisk();
     // if (turnOwner === 'computer') {
     //     computerTurn();
-    // }
-    turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
+    // }    
     document.getElementById('turn-reminder').style.visibility = 'visible';
 }
 
@@ -136,10 +139,12 @@ function computerTurn() {
 function dealCard() {
     if (turnOwner === 'player') {
         humanPlayedCards.push(chooseRandomCard());
+        handleAce();
         evaluateCards();
         document.getElementById('player-cards').innerText = `[${humanPlayedCards}]`;
     } else if (turnOwner === 'computer') {
         computerPlayedCards.push(chooseRandomCard());
+        handleAce();
         evaluateCards();
         evaluateRisk();
         document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
@@ -180,7 +185,6 @@ function evaluateComputerTotal() {
  */
 function evaluatePlayerTotal() {
     convertRoyals();
-
     playerTotal = humanPlayedCards.reduce(function (a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
         return a + b; // sums the numerical values of PlayedCards arrays
     }, 0);
@@ -201,6 +205,7 @@ function evaluatePlayerTotal() {
  * player and computer hand totals.
  */
 function evaluateCards() {
+    handleAce();
     evaluateComputerTotal();
     evaluatePlayerTotal();
 }
@@ -265,6 +270,9 @@ function stand() {
 function hit() {
     alert("The 'hit' button was pressed!");
     dealCard();
+    if (turnOwner === 'player') {
+        handleAce();
+    }
     switchTurn();
     if (playerTotal === 21 && computerStood === true) {
         playerStood = true;
@@ -330,9 +338,22 @@ function handleAce() {
         if (computerTotal < 12) {
             i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 10;
+            console.log("Ace was evaluated for CPU, and set as 10.")
         } else {
             i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 1;
+            console.log("Ace was evaluated for CPU, and set as 1.")
+        }
+    }
+    if (turnOwner === 'player' && computerPlayedCards.includes('ace')) {
+        if (playerTotal < 12) {
+            i = humanPlayedCards.indexOf('ace');
+            humanPlayedCards[i] = 10;
+            console.log("Ace was evaluated for player, and set as 10.")
+        } else {
+            i = humanPlayedCards.indexOf('ace');
+            humanPlayedCards[i] = 1;
+            console.log("Ace was evaluated for player, and set as 1.")
         }
     }
 }
