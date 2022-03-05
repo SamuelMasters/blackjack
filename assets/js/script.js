@@ -25,7 +25,9 @@ let values = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "king", "queen"];
 function logVariables() {
     console.log('Cards remaining: ' + cardDeck.length);
     console.log('Whose turn is it? ' + turnOwner);
+    console.log('Computer hand: ' + computerPlayedCards);
     console.log('Computer Total: ' + computerTotal);
+    console.log('Player hand: ' + humanPlayedCards);
     console.log('Player Total: ' + playerTotal);
     console.log('Risk Value: ' + riskValue);
     console.log('Player stood? ' + playerStood);
@@ -79,6 +81,7 @@ function startGame() {
     //     computerTurn();
     // }
     turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
+    document.getElementById('turn-reminder').style.visibility = 'visible';
 }
 
 /**
@@ -86,7 +89,7 @@ function startGame() {
  * it from the array, and then returns it as randomCard variable
  */
 function chooseRandomCard() {
-    let randomIndex = Math.floor(Math.random() * cardDeck.length); // does the +1 need to be here? this sometimes gives an undefined value to hands
+    let randomIndex = Math.floor(Math.random() * cardDeck.length); // does this need to change to Math.round instead?
     let randomCard = cardDeck[randomIndex];
     cardDeck.splice(randomIndex, 1);
     return randomCard;
@@ -118,7 +121,7 @@ function computerTurn() {
     evaluateRisk();
     if (Math.random() > riskValue) {
         hit();
-    } else if ((playerTotal < computerTotal) === true && Math.random() < riskValue) {
+    } else if ((playerTotal < computerTotal) === true && Math.random() < riskValue) { // the computer should stand if it exceeds the playerTotal and the player has stood
         stand();
     } else {
         hit();
@@ -152,12 +155,12 @@ function dealCard() {
 function evaluateComputerTotal() {
     convertRoyals(); // converts 'royal' cards to a numerical value of 10
 
+    handleAce();
+
     computerTotal = computerPlayedCards.reduce(function (a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
         return a + b; // sums the numerical values of PlayedCards arrays
     }, 0);
-
-    handleAce();
-
+ 
     document.getElementById('computer-total').innerText = `${computerTotal}`; // updates the hand total value on game interface
 
     // checks if the computer has gone bust
@@ -290,7 +293,7 @@ function evaluateRisk() {
             riskValue = 0.25;
         } else if (computerTotal <= 17) {
             riskValue = 0.85;
-        } else if (computerTotal > 18) {
+        } else if (computerTotal >= 18) {
             riskValue = 0.95;
         } else {
             throw 'No condition matched [evaluateRisk()] function for riskValue assignment.';
@@ -352,9 +355,11 @@ function evaluateWinner() {
             document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
             console.log('The computer won the round!');
             // start a new game here
-        } else {
+        } else if (playerTotal === computerTotal) {
             console.log("It's a tie!");
             // start a new game here
+        } else {
+            throw 'evaluateWinner() function did not match a condition!';
         }
     }
 }
