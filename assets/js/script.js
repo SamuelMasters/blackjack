@@ -1,19 +1,21 @@
 // Setup initial event listeners for player buttons
+let hitButton = document.getElementById('hit-button');
+let standButton = document.getElementById('stand-button');
+
 document.addEventListener('DOMContentLoaded', function () {
-    let hitButton = document.getElementById('hit-button');
-    let standButton = document.getElementById('stand-button');
     hitButton.addEventListener('click', hit);
     standButton.addEventListener('click', stand);
 });
 
+// Initial declaration of global variables for use within functions. 
 let computerPlayedCards = []; // contains all cards dealth to computer in current round
 let humanPlayedCards = []; // contains all cards dealt to player in current round
 let turnOwner = undefined; // indicates who the current turn belongs to
 let computerTotal = 0; // the total of the computer's hand
 let playerTotal = 0; // the total of the player's hand
 let riskValue = 0; // this value will range from 0 - 1, increasing as the computer total approaches 21
-let computerScore = 0;
-let playerScore = 0;
+let computerScore = 0; // represents rounds won by the computer in the current session
+let playerScore = 0; // represents rounds won by the player in the current session
 let playerStood = false; // indicates whether the player has stood down
 let computerStood = false; // indicates whether the computer has stood down
 
@@ -22,6 +24,10 @@ let computerStood = false; // indicates whether the computer has stood down
 let cardDeck = [];
 let values = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "king", "queen"];
 
+/**
+ * Logs the selected variables to the console, used for 
+ debugging purposes.
+ */
 function logVariables() {
     console.log('Cards remaining: ' + cardDeck.length);
     console.log('Whose turn is it? ' + turnOwner);
@@ -38,7 +44,7 @@ function logVariables() {
 
 /**
  * Resets the cardDeck variable to an empty array, then generates a new set
- * of 51 values, and pushes them to the newly-emptied cardDeck array.
+ * of 52 values, and pushes them to the empty cardDeck array.
  */
 function resetCardDeck() {
     cardDeck = [];
@@ -48,8 +54,6 @@ function resetCardDeck() {
         cardDeck.push(values[i]);
         cardDeck.push(values[i]);
     }
-    playerStood = false;
-    computerStood = false;
 }
 
 /**
@@ -57,6 +61,8 @@ function resetCardDeck() {
  * start of each new round, and resets game interface (except score).  
  */
 function resetVariables() {
+    hitButton.removeEventListener('click', hit);
+    standButton.removeEventListener('click', stand);
     computerPlayedCards = [];
     document.getElementById('computer-cards').innerText = '[]';
     humanPlayedCards = [];
@@ -65,7 +71,7 @@ function resetVariables() {
     document.getElementById('computer-total').innerText = computerTotal;
     playerTotal = 0;
     document.getElementById('player-total').innerText = playerTotal;
-    turnOwner = '';
+    turnOwner = 'player'; // review this 
     // riskValue = 0;
     playerStood = false;
     computerStood = false;
@@ -73,24 +79,43 @@ function resetVariables() {
 
 
 function startGame() {
+    console.log("Starting new game...");
     resetVariables();
-    resetCardDeck();
-    dealStartingCards();
-    // determineStartingPlayer();
-    if (humanPlayedCards.includes('ace')) {
-        i = humanPlayedCards.indexOf('ace');
-        humanPlayedCards[i] = 10;
-    }
-    turnOwner = 'computer';
-    handleAce();
-    turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
-    handleAce();
-    evaluateCards();
-    evaluateRisk();
-    // if (turnOwner === 'computer') {
-    //     computerTurn();
-    // }    
-    document.getElementById('turn-reminder').style.visibility = 'visible';
+    setTimeout(function () {
+        resetCardDeck();
+        dealStartingCards();
+        // determineStartingPlayer();
+        // if (humanPlayedCards.includes('ace')) {
+        //     i = humanPlayedCards.indexOf('ace');
+        //     humanPlayedCards[i] = 10;
+        // }
+
+        // The two for loops here check for aces in the opening hands, and 
+        // convert them to a numerical value of 10. 
+        for (let i = 0; i < humanPlayedCards.length; i++) {
+            if (humanPlayedCards[i] === 'ace') {
+                humanPlayedCards[i] = 10;
+            }
+        }
+        for (let i = 0; i < computerPlayedCards.length; i++) {
+            if (computerPlayedCards[i] === 'ace') {
+                computerPlayedCards[i] = 10;
+            }
+        }
+        // turnOwner = 'computer';
+        // handleAce();
+        turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
+        console.log('Turn owner reset to player.');
+        // handleAce();
+        evaluateCards();
+        // evaluateRisk();
+        // if (turnOwner === 'computer') {
+        //     computerTurn();
+        // }    
+        document.getElementById('turn-reminder').style.visibility = 'visible';
+    }, 3000);
+    hitButton.addEventListener('click', hit);
+    standButton.addEventListener('click', stand);
 }
 
 /**
@@ -107,7 +132,7 @@ function chooseRandomCard() {
 /**
  * Takes four random values from cardDeck array and
  * moves them to computerPlayedCards and
- * humanPlayedCards arrays (two each)
+ * humanPlayedCards arrays (two each).
  */
 function dealStartingCards() {
     let activeCard = chooseRandomCard();
@@ -119,7 +144,9 @@ function dealStartingCards() {
     activeCard = chooseRandomCard();
     humanPlayedCards.push(activeCard);
     document.getElementById('player-cards').innerText = `[${humanPlayedCards}]`;
+    console.log(`The player's opening cards are ${humanPlayedCards}.`);
     document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
+    console.log(`The computer's opening cards are ${computerPlayedCards}.`);
 }
 
 /**
@@ -128,12 +155,18 @@ function dealStartingCards() {
  */
 function computerTurn() {
     evaluateRisk();
-    if (Math.random() > riskValue) {
+    let randomValue = Math.random();
+    if (randomValue > riskValue) {
         hit();
-    } else if ((playerTotal < computerTotal) === true && Math.random() < riskValue) { // the computer should stand if it exceeds the playerTotal and the player has stood
+    } else if ((playerTotal < computerTotal) === true && playerStood === true) { // the computer should stand if it exceeds the playerTotal and the player has stood
+        stand();
+    } else if (playerTotal === computerTotal && randomValue < riskValue) {
+        stand();
+    } else if (randomValue < riskValue && (playerTotal < computerTotal) === true) {
         stand();
     } else {
-        hit();
+        stand();
+        console.log('No evaluation matched for computerTurn() function, defaulting to stand().');
     }
 }
 
@@ -148,12 +181,14 @@ function dealCard() {
         handleAce();
         evaluateCards();
         document.getElementById('player-cards').innerText = `[${humanPlayedCards}]`;
+        console.log(`The player's cards are now ${humanPlayedCards}.`)
     } else if (turnOwner === 'computer') {
         computerPlayedCards.push(chooseRandomCard());
         handleAce();
         evaluateCards();
-        evaluateRisk();
+        // evaluateRisk(); // leaving this commented out for testing (appears to be running twice on some turns)
         document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
+        console.log(`The computer's cards are now ${computerPlayedCards}.`);
     } else {
         throw 'turnOwner variable is invalid! [dealCard() function]';
     }
@@ -171,7 +206,7 @@ function evaluateComputerTotal() {
     computerTotal = computerPlayedCards.reduce(function (a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
         return a + b; // sums the numerical values of PlayedCards arrays
     }, 0);
- 
+
     document.getElementById('computer-total').innerText = `${computerTotal}`; // updates the hand total value on game interface
 
     // checks if the computer has gone bust
@@ -179,10 +214,11 @@ function evaluateComputerTotal() {
         console.log("The computer has gone bust!");
         playerScore++;
         document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
-        // begin a new round here
+        setTimeout(startGame, 3000);
     }
 
-    return computerTotal;
+    console.log(`Computer total is now ${computerTotal}.`);
+    // return computerTotal;
 }
 
 /**
@@ -201,9 +237,11 @@ function evaluatePlayerTotal() {
         // computerStood = true;
         playerStood = true;
         document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
-        // begin a new round here
+        setTimeout(startGame, 3000);
     }
-    return playerTotal;
+
+    console.log(`Player total is now ${playerTotal}.`);
+    // return playerTotal;
 }
 
 /**
@@ -237,28 +275,24 @@ function convertRoyals() {
     }
 }
 
-function playerTurn() {
-
-}
-
 /**
  * Randomly chooses which player will take their turn first
  * after initial cards are dealt. 
  */
-function determineStartingPlayer() {
-    let randomNum = Math.random();
-    if (randomNum < 0.5) {
-        turnOwner = 'computer';
-    } else if (randomNum > 0.5) {
-        turnOwner = 'player';
-        document.getElementById('turn-reminder').style.visibility = 'visible';
-    } else {
-        throw 'Invalid conditional value for randomNum variable! [determineStartingPlayer()] function';
-    }
-}
+// function determineStartingPlayer() {
+//     let randomNum = Math.random();
+//     if (randomNum < 0.5) {
+//         turnOwner = 'computer';
+//     } else if (randomNum > 0.5) {
+//         turnOwner = 'player';
+//         document.getElementById('turn-reminder').style.visibility = 'visible';
+//     } else {
+//         throw 'Invalid conditional value for randomNum variable! [determineStartingPlayer()] function';
+//     }
+// }
 
 function stand() {
-    alert("The 'stand' button was pressed!");
+    // alert("The 'stand' button was pressed!");
     if (turnOwner === 'computer') {
         computerStood = true;
         switchTurn();
@@ -274,7 +308,7 @@ function stand() {
 }
 
 function hit() {
-    alert("The 'hit' button was pressed!");
+    // alert("The 'hit' button was pressed!");
     dealCard();
     if (turnOwner === 'player') {
         handleAce();
@@ -313,6 +347,7 @@ function evaluateRisk() {
             throw 'No condition matched [evaluateRisk()] function for riskValue assignment.';
         }
     }
+    console.log(`Risk value evaluated and set to ${riskValue}.`);
 }
 
 /**
@@ -320,19 +355,25 @@ function evaluateRisk() {
  */
 function switchTurn() {
     if (turnOwner === 'computer' && playerStood === false) {
+        hitButton.addEventListener('click', hit);
+        standButton.addEventListener('click', stand);
         turnOwner = 'player';
         document.getElementById('turn-reminder').style.visibility = 'visible';
         console.log(`The condition to change the turnOwner variable to "player" was matched. turnOwner = ${turnOwner}`);
     } else if (turnOwner === 'player' && computerStood === false) {
-        turnOwner = 'computer'; 
+        turnOwner = 'computer';
         console.log(`The condition to change the turnOwner variable to 'computer' was matched. turnOwner = ${turnOwner}`);
         document.getElementById('turn-reminder').style.visibility = 'hidden';
+        hitButton.removeEventListener('click', hit);
+        standButton.removeEventListener('click', stand);
+        setTimeout(computerTurn, 3000);
         if (turnOwner === 'player') {
             throw 'turnOwner was not reassigned to computer as expected!';
-        }
+        } // specically here to check for errors during testing
     } else {
         evaluateWinner();
     }
+    console.log(`It is currently the ${turnOwner}'s turn.`);
 }
 
 /**
@@ -345,10 +386,12 @@ function handleAce() {
             i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 10;
             console.log("Ace was evaluated for CPU, and set as 10.")
-        } else {
+        } else if (computerTotal >= 12) {
             i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 1;
-            console.log("Ace was evaluated for CPU, and set as 1.")
+            console.log("Ace was evaluated for CPU, and set as 1.");
+        } else {
+            throw 'No condition was matched for handleAce() evaluation (computer).';
         }
     }
     if (turnOwner === 'player' && computerPlayedCards.includes('ace')) {
@@ -356,10 +399,12 @@ function handleAce() {
             i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 10;
             console.log("Ace was evaluated for player, and set as 10.")
-        } else {
+        } else if (playerTotal >= 12) {
             i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 1;
             console.log("Ace was evaluated for player, and set as 1.")
+        } else {
+            throw 'No condition was matched for handleAce() evaluation (player).';
         }
     }
 }
@@ -376,17 +421,15 @@ function evaluateWinner() {
             playerScore++;
             document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
             console.log('You won the round!');
-            // start a new game here
+            setTimeout(startGame, 3000); // automatically starts a new game after the round ends 
         } else if (playerTotal < computerTotal && computerTotal < 22) {
             computerScore++;
             document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
             console.log('The computer won the round!');
-            // start a new game here
+            setTimeout(startGame, 3000); // automatically starts a new game after the round ends
         } else if (playerTotal === computerTotal) {
             console.log("It's a tie!");
-            // start a new game here
-        } else {
-            throw 'evaluateWinner() function did not match a condition!';
+            setTimeout(startGame, 3000); // automatically starts a new game after the round ends
         }
     }
 }
