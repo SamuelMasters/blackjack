@@ -3,8 +3,10 @@ let hitButton = document.getElementById('hit-button');
 let standButton = document.getElementById('stand-button');
 
 document.addEventListener('DOMContentLoaded', function () {
-    hitButton.addEventListener('click', hit);
+    hitButton.innerText = 'START GAME!';
+    hitButton.addEventListener('click', startGame);
     standButton.addEventListener('click', stand);
+    standButton.style.visibility = 'hidden';
 });
 
 // Initial declaration of global variables for use within functions. 
@@ -80,6 +82,8 @@ function resetVariables() {
 
 function startGame() {
     console.log("Starting new game...");
+    hitButton.innerText = 'HIT';
+    hitButton.removeEventListener('click', startGame);
     resetVariables();
     setTimeout(function () {
         resetCardDeck();
@@ -115,6 +119,7 @@ function startGame() {
         document.getElementById('turn-reminder').style.visibility = 'visible';
     }, 3000);
     hitButton.addEventListener('click', hit);
+    standButton.style.visibility = 'visible';
     standButton.addEventListener('click', stand);
 }
 
