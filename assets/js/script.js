@@ -161,6 +161,7 @@ function dealStartingCards() {
 function computerTurn() {
     evaluateRisk();
     let randomValue = Math.random();
+    console.log(`Random value is: ${randomValue}`);
     if (randomValue > riskValue) {
         hit();
     } else if ((playerTotal < computerTotal) === true && playerStood === true) { // the computer should stand if it exceeds the playerTotal and the player has stood
@@ -169,9 +170,11 @@ function computerTurn() {
         stand();
     } else if (randomValue < riskValue && (playerTotal < computerTotal) === true) {
         stand();
+    } else if (playerStood === true && playerTotal > computerTotal) {
+        hit();
     } else {
         stand();
-        console.log('No evaluation matched for computerTurn() function, defaulting to stand().');
+        console.log('No evaluation matched for computerTurn() function, defaulting to stand().'); // testing shows that this triggers when it shouldn't
     }
 }
 
@@ -399,7 +402,7 @@ function handleAce() {
             throw 'No condition was matched for handleAce() evaluation (computer).';
         }
     }
-    if (turnOwner === 'player' && computerPlayedCards.includes('ace')) {
+    if (turnOwner === 'player' && humanPlayedCards.includes('ace')) {
         if (playerTotal < 12) {
             i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 10;
