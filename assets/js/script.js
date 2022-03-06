@@ -32,6 +32,8 @@ function logVariables() {
     console.log('Risk Value: ' + riskValue);
     console.log('Player stood? ' + playerStood);
     console.log('Computer stood? ' + computerStood);
+    console.log('Player Score: ' + playerScore);
+    console.log('Computer Score: ' + computerScore);
 }
 
 /**
@@ -75,6 +77,10 @@ function startGame() {
     resetCardDeck();
     dealStartingCards();
     // determineStartingPlayer();
+    if (humanPlayedCards.includes('ace')) {
+        i = humanPlayedCards.indexOf('ace');
+        humanPlayedCards[i] = 10;
+    }
     turnOwner = 'computer';
     handleAce();
     turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
@@ -192,7 +198,7 @@ function evaluatePlayerTotal() {
     if (playerTotal > 21) {
         console.log("You've gone bust!");
         computerScore++;
-        computerStood = true;
+        // computerStood = true;
         playerStood = true;
         document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
         // begin a new round here
@@ -318,7 +324,7 @@ function switchTurn() {
         document.getElementById('turn-reminder').style.visibility = 'visible';
         console.log(`The condition to change the turnOwner variable to "player" was matched. turnOwner = ${turnOwner}`);
     } else if (turnOwner === 'player' && computerStood === false) {
-        turnOwner = 'computer'; // this line is not executing correctly!
+        turnOwner = 'computer'; 
         console.log(`The condition to change the turnOwner variable to 'computer' was matched. turnOwner = ${turnOwner}`);
         document.getElementById('turn-reminder').style.visibility = 'hidden';
         if (turnOwner === 'player') {
