@@ -77,7 +77,7 @@ function resetVariables() {
     playerTotal = 0;
     document.getElementById('player-total').innerText = playerTotal;
     turnOwner = 'player'; // review this 
-    // riskValue = 0;
+    riskValue = 0;
     playerStood = false;
     computerStood = false;
     console.log('playerStood, computerStood, playerTotal, computerTotal all reset, and turnOwner set to player.');
@@ -88,7 +88,7 @@ function startGame() {
     console.log("Starting new game...");
     hitButton.innerText = 'HIT';
     hitButton.removeEventListener('click', startGame);
-    opponentMessage.innerText = "It is the opponent's turn!";
+    opponentMessage.innerHTML = "<strong>It is the opponent's turn!</strong>";
     resetVariables();
     console.log('Variables have been reset.');
 
@@ -171,19 +171,19 @@ function computerTurn() {
     console.log(`Random value is: ${randomValue}`);
     if (randomValue > riskValue) {
         hit();
-        console.log('The computer chose to hit.');
+        // console.log('The computer chose to hit.');
     } else if (playerTotal < computerTotal === true && playerStood === true) { // the computer should stand if it exceeds the playerTotal and the player has stood
         stand();
-        console.log('The computer chose to stand.');
+        // console.log('The computer chose to stand.');
     } else if (playerTotal === computerTotal && randomValue < riskValue) {
         stand();
-        console.log('The computer chose to stand.');
+        // console.log('The computer chose to stand.');
     } else if (randomValue < riskValue && playerTotal < computerTotal === true) {
         stand();
-        console.log('The computer chose to stand.');
+        // console.log('The computer chose to stand.');
     } else if (playerStood === true && playerTotal > computerTotal) {
         hit();
-        console.log('The computer chose to hit.');
+        // console.log('The computer chose to hit.');
     } else {
         stand();
         console.log('No evaluation matched for computerTurn() function, defaulting to stand().'); // testing shows that this triggers when it shouldn't
