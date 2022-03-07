@@ -164,17 +164,26 @@ function computerTurn() {
     console.log(`Random value is: ${randomValue}`);
     if (randomValue > riskValue) {
         hit();
+        console.log('The computer chose to hit.');
     } else if ((playerTotal < computerTotal) === true && playerStood === true) { // the computer should stand if it exceeds the playerTotal and the player has stood
         stand();
+        console.log('The computer chose to stand.');
     } else if (playerTotal === computerTotal && randomValue < riskValue) {
         stand();
+        console.log('The computer chose to stand.');
     } else if (randomValue < riskValue && (playerTotal < computerTotal) === true) {
         stand();
+        console.log('The computer chose to stand.');
     } else if (playerStood === true && playerTotal > computerTotal) {
         hit();
+        console.log('The computer chose to hit.');
     } else {
         stand();
         console.log('No evaluation matched for computerTurn() function, defaulting to stand().'); // testing shows that this triggers when it shouldn't
+    }
+
+    if (playerStood === true && computerStood === false) {
+        computerTurn();
     }
 }
 
@@ -221,7 +230,9 @@ function evaluateComputerTotal() {
     if (computerTotal > 21) {
         console.log("The computer has gone bust!");
         playerScore++;
+        console.log("The player's score has increased by 1.");
         document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
+        console.log("Automatically starting new game from evaluateComputerTotal() function...");
         setTimeout(startGame, 3000);
     }
 
@@ -242,9 +253,11 @@ function evaluatePlayerTotal() {
     if (playerTotal > 21) {
         console.log("You've gone bust!");
         computerScore++;
+        console.log("The computer's score has incremented by 1.");
         // computerStood = true;
         playerStood = true;
         document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
+        console.log('Starting new game automatically from the evaluatePlayerTotal() function...');
         setTimeout(startGame, 3000);
     }
 
@@ -374,6 +387,7 @@ function switchTurn() {
         document.getElementById('turn-reminder').style.visibility = 'hidden';
         hitButton.removeEventListener('click', hit);
         standButton.removeEventListener('click', stand);
+        console.log("Calling computerTurn() function in three seconds from switchTurn() function...");
         setTimeout(computerTurn, 3000);
         if (turnOwner === 'player') {
             throw 'turnOwner was not reassigned to computer as expected!';
@@ -429,14 +443,17 @@ function evaluateWinner() {
             playerScore++;
             document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
             console.log('You won the round!');
+            console.log('Starting new game automatically from evaluateWinner() function...');
             setTimeout(startGame, 3000); // automatically starts a new game after the round ends 
         } else if (playerTotal < computerTotal && computerTotal < 22) {
             computerScore++;
             document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
             console.log('The computer won the round!');
+            console.log('Starting new game automatically from evaluateWinner() function...');
             setTimeout(startGame, 3000); // automatically starts a new game after the round ends
         } else if (playerTotal === computerTotal) {
             console.log("It's a tie!");
+            console.log('Starting new game automatically from evaluateWinner() function...');
             setTimeout(startGame, 3000); // automatically starts a new game after the round ends
         }
     }
