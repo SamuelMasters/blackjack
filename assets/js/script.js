@@ -87,7 +87,6 @@ function resetVariables() {
 function startGame() {
     console.log("Starting new game...");
     hitButton.innerText = 'HIT';
-    // hitButton.removeEventListener('click', setTimeout(startGame, 3000));
     hitButton.removeEventListener('click', startGame);
     opponentMessage.style.visibility = 'hidden'; // hides opponent message at the start of each new round
     opponentMessage.innerHTML = "<strong>It is the opponent's turn!</strong>"; // resets opponent message at start of each new round
@@ -220,8 +219,6 @@ function evaluateComputerTotal() {
         playerScore++;
         console.log("The player's score has increased by 1.");
         document.getElementById('player-score').innerText = `Your Score: ${playerScore}`;
-        // console.log("Automatically starting new game from evaluateComputerTotal() function...");
-        // setTimeout(startGame, 3000); // THIS NEEDS TO BE REPLACED WITH A USER MESSAGE ASKING IF THEY WANT TO PLAY AGAIN
         hitButton.removeEventListener('click', hit);
         hitButton.innerText = 'PLAY AGAIN?';
         hitButton.addEventListener('click', startGame);
@@ -252,12 +249,10 @@ function evaluatePlayerTotal() {
         // computerStood = true;
         playerStood = true;
         document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
-        // console.log('Starting new game automatically from the evaluatePlayerTotal() function...');
-        // setTimeout(startGame, 3000); // THIS NEEDS TO BE REPLACED WITH A USER MESSAGE ASKING IF THEY WANT TO PLAY AGAIN
         hitButton.removeEventListener('click', hit);
         hitButton.innerText = 'PLAY AGAIN?';
         standButton.style.visibility = 'hidden';
-        hitButton.addEventListener('click', startGame); // in debugging, the script continued to run onto the computer's turn at this point!
+        hitButton.addEventListener('click', startGame);
         return;
     } else if (playerTotal === 21) {
         playerStood = true;
@@ -403,10 +398,10 @@ function switchTurn() {
         document.getElementById('opponent-message').style.visibility = 'visible';
         hitButton.removeEventListener('click', hit);
         standButton.removeEventListener('click', stand);
-        setTimeout(computerTurn, 3000);
+        setTimeout(computerTurn, 3000); // this does not appear to be running automatically while nested in the setTimeout method
     } else if (turnOwner === 'computer' && playerStood === true) {
         console.log('Calling computerTurn() function from switchTurn() function...');
-        setTimeout(computerTurn, 3000);
+        setTimeout(computerTurn, 3000); // this does not appear to be running automatically while nested in the setTimeout method
     } else if (turnOwner === 'player' && computerStood === true) {
         // console.log("It is the player's turn, and the computer has already stood.");
     } else {
