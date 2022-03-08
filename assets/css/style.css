@@ -7,6 +7,30 @@ body {
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
+button {
+    font-size: larger;
+    font-family: inherit;
+    font-weight: bolder;
+}
+
+#hit-button {
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+    border-right: 5px solid black;
+    border-bottom: 2px solid black;
+}
+
+#stand-button {
+    border-top: 2px solid black;
+    border-left: 5px solid black;
+    border-right: 5px solid black;
+    border-bottom: 5px solid black;
+}
+
+.total-header {
+    font-size: 1.25rem;
+}
+
 #page-container {
     display: grid;
     grid-template-rows: 50px 25px 210px 90px repeat(2, 210px);
@@ -15,8 +39,8 @@ body {
 
 .grid-item {
     display: grid;
-    background-color: red;
-    border: 1px solid yellow;
+    /* background-color: red; */
+    /* border: 1px solid black; */
     grid-column: 1;  
 }
 
@@ -35,12 +59,22 @@ body {
 }
 
 .grid-item-2 {
-    grid-column: 1;    
+    grid-column: 1;
+    border-bottom: 3px solid black;
 }
 
 .grid-item-2 p {
     font-size: 1rem;
     margin: auto;
+}
+
+.grid-item-4 {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+
+#computer-score, #player-score {
+    font-size: large;
 }
 
 #turn-reminder {

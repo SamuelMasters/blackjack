@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <link rel="shortcut icon" href="assets/images/favicon-16x16.png" type="image/x-icon">
     <title>Blackjack</title>
 </head>
+
 <body>
     <div id="page-container">
         <div class="grid-item grid-item-1">
@@ -16,26 +18,27 @@
         <div class="grid-item grid-item-2">
             <p><a href="#">Play</a> | <a href="#">Rules</a> | <a href="#">About</a></p>
         </div>
-        <div class="grid-item grid-item 3">
-            <p>Opponent's Total
+        <div class="grid-item grid-item-3">
+            <p class="total-header">
+                <strong>Opponent's Total</strong>
                 <p id="opponent-message"><strong>It is the opponent's turn!</strong></p>
             </p>
             <h2 id="computer-total">0</h2>
             <h3 id="computer-cards">[]</h3>
         </div>
-        <div class="grid-item grid-item 4">
-            <p id="computer-score">Opponent Score: 0</p>
-            <p id="player-score">Player Score: 0</p>
+        <div class="grid-item grid-item-4">
+            <p id="computer-score"><strong>Opponent Score: 0</strong></p>
+            <p id="player-score"><strong>Player Score: 0</strong></p>
         </div>
-        <div class="grid-item grid-item 5">
-            <p>
-                Your Total
+        <div class="grid-item grid-item-5">
+            <p class="total-header">
+                <strong>Your Total</strong>
                 <p id="turn-reminder"><strong>It is your turn!</strong></p>
             </p>
             <h2 id="player-total">0</h2>
             <h3 id="player-cards">[]</h3>
         </div>
-        <div class="grid-item grid-item 6">
+        <div class="grid-item grid-item-6">
             <button id="hit-button">
                 HIT
             </button>
@@ -48,4 +51,5 @@
 
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>

@@ -87,19 +87,14 @@ function resetVariables() {
 function startGame() {
     console.log("Starting new game...");
     hitButton.innerText = 'HIT';
+    // hitButton.removeEventListener('click', setTimeout(startGame, 3000));
     hitButton.removeEventListener('click', startGame);
-    opponentMessage.innerHTML = "<strong>It is the opponent's turn!</strong>";
+    opponentMessage.style.visibility = 'hidden'; // hides opponent message at the start of each new round
+    opponentMessage.innerHTML = "<strong>It is the opponent's turn!</strong>"; // resets opponent message at start of each new round
     resetVariables();
     console.log('Variables have been reset.');
-
-    setTimeout(console.log('Waiting...'), 3000);
     resetCardDeck();
     dealStartingCards();
-    // determineStartingPlayer();
-    // if (humanPlayedCards.includes('ace')) {
-    //     i = humanPlayedCards.indexOf('ace');
-    //     humanPlayedCards[i] = 10;
-    // }
 
     // The two for loops here check for aces in the opening hands, and 
     // convert them to a numerical value of 10. 
@@ -113,17 +108,10 @@ function startGame() {
             computerPlayedCards[i] = 10;
         }
     }
-    // turnOwner = 'computer';
-    // handleAce();
-    // turnOwner = 'player'; // player always goes first, AKA 'dealer advantage', consider removing determineStartingPlayer() function?
-    // console.log('Turn owner reset to player.');
-    // handleAce();
+
     evaluateCards();
     console.log('evaluateCards() called from startGame() function.');
-    // evaluateRisk();
-    // if (turnOwner === 'computer') {
-    //     computerTurn();
-    // }    
+
     playerMessage.style.visibility = 'visible';
     hitButton.addEventListener('click', hit);
     standButton.style.visibility = 'visible';
@@ -171,19 +159,14 @@ function computerTurn() {
     console.log(`Random value is: ${randomValue}`);
     if (randomValue > riskValue) {
         hit();
-        // console.log('The computer chose to hit.');
     } else if (playerTotal < computerTotal === true && playerStood === true) { // the computer should stand if it exceeds the playerTotal and the player has stood
         stand();
-        // console.log('The computer chose to stand.');
     } else if (playerTotal === computerTotal && randomValue < riskValue) {
         stand();
-        // console.log('The computer chose to stand.');
     } else if (randomValue < riskValue && playerTotal < computerTotal === true) {
         stand();
-        // console.log('The computer chose to stand.');
     } else if (playerStood === true && playerTotal > computerTotal) {
         hit();
-        // console.log('The computer chose to hit.');
     } else {
         stand();
         console.log('No evaluation matched for computerTurn() function, defaulting to stand().'); // testing shows that this triggers when it shouldn't
@@ -203,18 +186,15 @@ function dealCard() {
     if (turnOwner === 'player') {
         console.log('The player chose hit, and is about to be dealt another card.');
         humanPlayedCards.push(chooseRandomCard());
-        // handleAce();
-        evaluatePlayerTotal();
         document.getElementById('player-cards').innerText = `[${humanPlayedCards}]`;
         console.log(`The player's cards are now ${humanPlayedCards}.`)
+        evaluatePlayerTotal();
     } else if (turnOwner === 'computer') {
         console.log('The computer chose hit, and is about to be dealt another card.');
         computerPlayedCards.push(chooseRandomCard());
-        // handleAce();
-        evaluateComputerTotal();
-        // evaluateRisk(); // leaving this commented out for testing (appears to be running twice on some turns)
         document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
         console.log(`The computer's cards are now ${computerPlayedCards}.`);
+        evaluateComputerTotal();
     } else {
         throw 'turnOwner variable is invalid! [dealCard() function]';
     }
@@ -278,7 +258,7 @@ function evaluatePlayerTotal() {
         hitButton.innerText = 'PLAY AGAIN?';
         standButton.style.visibility = 'hidden';
         hitButton.addEventListener('click', startGame); // in debugging, the script continued to run onto the computer's turn at this point!
-        return; 
+        return;
     } else if (playerTotal === 21) {
         playerStood = true;
         console.log("The player automatically stands, having reached 21.");
@@ -423,12 +403,10 @@ function switchTurn() {
         document.getElementById('opponent-message').style.visibility = 'visible';
         hitButton.removeEventListener('click', hit);
         standButton.removeEventListener('click', stand);
-        computerTurn();
-        // return;
+        setTimeout(computerTurn, 3000);
     } else if (turnOwner === 'computer' && playerStood === true) {
         console.log('Calling computerTurn() function from switchTurn() function...');
-        setTimeout(console.log('Three seconds...'));
-        computerTurn();
+        setTimeout(computerTurn, 3000);
     } else if (turnOwner === 'player' && computerStood === true) {
         // console.log("It is the player's turn, and the computer has already stood.");
     } else {
@@ -505,7 +483,11 @@ function evaluateWinner() {
             hitButton.removeEventListener('click', hit);
             hitButton.innerText = 'PLAY AGAIN?';
             standButton.style.visibility = 'hidden';
-            hitButton.addEventListener('click', startGame);
+            hitButton.addEventListener('click', function () {
+                setTimeout(function () {
+                    startGame
+                }, 3000)
+            });
             // console.log('Starting new game automatically from evaluateWinner() function...');
             // setTimeout(startGame, 3000); // automatically starts a new game after the round ends // THIS NEEDS TO BE REPLACED WITH A USER MESSAGE ASKING IF THEY WANT TO PLAY AGAIN
             return;
