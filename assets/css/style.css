@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans Condensed', sans-serif;
+    color: #232323;
 }
 
 button {
@@ -14,17 +15,17 @@ button {
 }
 
 #hit-button {
-    border-top: 5px solid black;
-    border-left: 5px solid black;
-    border-right: 5px solid black;
-    border-bottom: 2px solid black;
+    border-top: 5px solid #232323;
+    border-left: 5px solid #232323;
+    border-right: 5px solid #232323;
+    border-bottom: 2px solid #232323;
 }
 
 #stand-button {
-    border-top: 2px solid black;
-    border-left: 5px solid black;
-    border-right: 5px solid black;
-    border-bottom: 5px solid black;
+    border-top: 2px solid #232323;
+    border-left: 5px solid #232323;
+    border-right: 5px solid #232323;
+    border-bottom: 5px solid #232323;
 }
 
 .total-header {
@@ -60,7 +61,7 @@ button {
 
 .grid-item-2 {
     grid-column: 1;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #232323;
 }
 
 .grid-item-2 p {
@@ -69,8 +70,8 @@ button {
 }
 
 .grid-item-4 {
-    border-top: 3px solid black;
-    border-bottom: 3px solid black;
+    border-top: 3px solid #232323;
+    border-bottom: 3px solid #232323;
 }
 
 #computer-score, #player-score {
