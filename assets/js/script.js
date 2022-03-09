@@ -31,6 +31,7 @@ function toggleRules() {
         gridFour.style.visibility = 'visible';
         gridFive.style.visibility = 'visible';
         gridSix.style.visibility = 'visible';
+        standButton.style.visibility = 'visible';
     } else if (rulesToggle === false) {
         rulesInterface.style.visibility = 'visible';
         rulesToggle = true;
@@ -38,6 +39,7 @@ function toggleRules() {
         gridFour.style.visibility = 'hidden';
         gridFive.style.visibility = 'hidden';
         gridSix.style.visibility = 'hidden';
+        standButton.style.visibility = 'hidden';
     }
 }
 
@@ -119,7 +121,9 @@ function resetVariables() {
 
 
 function startGame() {
-    toggleRules();
+    if (rulesToggle === true) {
+        toggleRules();
+    }    
     gridThree.style.visibility = 'visible';
     gridFour.style.visibility = 'visible';
     gridFive.style.visibility = 'visible';
