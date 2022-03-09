@@ -3,14 +3,43 @@ let hitButton = document.getElementById('hit-button');
 let standButton = document.getElementById('stand-button');
 let opponentMessage = document.getElementById('opponent-message');
 let playerMessage = document.getElementById('turn-reminder');
+let rulesButton = document.getElementById('rules-button');
+let rulesInterface = document.getElementById('rules');
+let rulesToggle = true;
+let gridThree = document.getElementById('grid-item-3');
+let gridFour = document.getElementById('grid-item-4');
+let gridFive = document.getElementById('grid-item-5');
+let gridSix = document.getElementById('grid-item-6');
+let grids = [gridThree, gridFour, gridFive, gridSix];
+
 
 document.addEventListener('DOMContentLoaded', function () {
+    rulesButton.addEventListener('click', startGame);
     hitButton.innerText = 'START GAME!';
     hitButton.addEventListener('click', startGame);
     standButton.addEventListener('click', stand);
     standButton.style.visibility = 'hidden';
     document.getElementById('opponent-message').style.visibility = 'hidden';
+    document.getElementById('rules-header').addEventListener('click', toggleRules);
 });
+
+function toggleRules() {
+    if (rulesToggle === true) {
+        rulesInterface.style.visibility = 'hidden';
+        rulesToggle = false;
+        gridThree.style.visibility = 'visible';
+        gridFour.style.visibility = 'visible';
+        gridFive.style.visibility = 'visible';
+        gridSix.style.visibility = 'visible';
+    } else if (rulesToggle === false) {
+        rulesInterface.style.visibility = 'visible';
+        rulesToggle = true;
+        gridThree.style.visibility = 'hidden';
+        gridFour.style.visibility = 'hidden';
+        gridFive.style.visibility = 'hidden';
+        gridSix.style.visibility = 'hidden';
+    }
+}
 
 // Initial declaration of global variables for use within functions. 
 let computerPlayedCards = []; // contains all cards dealth to computer in current round
@@ -69,6 +98,7 @@ function resetVariables() {
     hitButton.removeEventListener('click', hit);
     opponentMessage.innerHTML = `<strong>It is the computer's turn!</strong>`;
     opponentMessage.style.visibility = 'hidden';
+    playerMessage.innerHTML = `<strong>It is your turn.</strong>`
     standButton.removeEventListener('click', stand);
     computerPlayedCards = [];
     document.getElementById('computer-cards').innerText = computerPlayedCards;
@@ -84,10 +114,17 @@ function resetVariables() {
     computerStood = false;
     console.log('playerStood, computerStood, playerTotal, computerTotal all reset, and turnOwner set to player.');
     resetCardDeck();
+
 }
 
 
 function startGame() {
+    toggleRules();
+    gridThree.style.visibility = 'visible';
+    gridFour.style.visibility = 'visible';
+    gridFive.style.visibility = 'visible';
+    gridSix.style.visibility = 'visible';
+    document.getElementById('grid-item-3').style.visibility = 'visible';
     console.log("Starting new game...");
     hitButton.innerText = 'HIT';
     hitButton.removeEventListener('click', startGame);
@@ -162,21 +199,21 @@ function computerTurn() {
         hit();
     } else if (playerTotal < computerTotal === true && playerStood === true) { // the computer should stand if it exceeds the playerTotal and the player has stood
         stand();
-        opponentMessage.innerText = 'The computer has stood.';
+        opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
     } else if (playerTotal === computerTotal && randomValue < riskValue) {
         stand();
-        opponentMessage.innerText = 'The computer has stood.';
+        opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
     } else if (randomValue < riskValue && playerTotal < computerTotal === true) {
         stand();
-        opponentMessage.innerText = 'The computer has stood.';
+        opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
     } else if (playerStood === true && playerTotal > computerTotal) {
         hit();
     } else {
         stand();
-        opponentMessage.innerText = 'The computer has stood.';
+        opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
         console.log('No evaluation matched for computerTurn() function, defaulting to stand().'); // testing shows that this triggers when it shouldn't
     }
@@ -225,7 +262,7 @@ function evaluateComputerTotal() {
     // checks if the computer has gone bust
     if (computerTotal > 21) {
         console.log('The computer has gone bust!');
-        opponentMessage.innerText = 'The computer has bust!';
+        opponentMessage.innerHTML = '<strong>The computer has bust!</strong>';
         playerScore++;
         computerStood = true;
         playerStood = true;
@@ -261,7 +298,7 @@ function evaluatePlayerTotal() {
 
     if (playerTotal > 21) {
         console.log("You've gone bust!");
-        playerMessage.innerText = ("You've gone bust!");
+        playerMessage.innerHTML = `<strong>You've gone bust!</strong>`;
         playerMessage.style.visibility = 'visible';
         computerScore++;
         computerStood = true;
@@ -499,11 +536,7 @@ function evaluateWinner() {
             hitButton.removeEventListener('click', hit);
             hitButton.innerText = 'PLAY AGAIN?';
             standButton.style.visibility = 'hidden';
-            hitButton.addEventListener('click', function () {
-                setTimeout(function () {
-                    startGame
-                }, 3000)
-            });
+            hitButton.addEventListener('click', startGame);
             // console.log('Starting new game automatically from evaluateWinner() function...');
             // setTimeout(startGame, 3000); // automatically starts a new game after the round ends // THIS NEEDS TO BE REPLACED WITH A USER MESSAGE ASKING IF THEY WANT TO PLAY AGAIN
             return;

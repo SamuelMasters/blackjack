@@ -8,6 +8,26 @@ body {
     color: #232323;
 }
 
+#rules {
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-weight: 700;
+}
+
+#rules h2 {
+    margin-bottom: 3%;
+}
+
+#rules p {
+    padding-bottom: 5%;
+}
+
+#grid-item-3, #grid-item-4, #grid-item-5, #grid-item-6 {
+    visibility: hidden;
+}
+
 button {
     font-size: larger;
     font-family: inherit;
@@ -28,6 +48,11 @@ button {
     border-bottom: 5px solid #232323;
 }
 
+#rules-button {
+    margin-top: 5%;
+    font-size: 2rem;
+}
+
 .total-header {
     font-size: 1.25rem;
 }
@@ -43,13 +68,14 @@ button {
     /* background-color: red; */
     /* border: 1px solid black; */
     grid-column: 1;  
+    text-align: center;
 }
 
-.grid-item p, .grid-item h2, .grid-item h3 {
+.grid-item p, #grid-item h2, #grid-item h3 {
     margin: auto;
 }
 
-.grid-item-1 {
+#grid-item-1 {
     grid-column: 1;
 }
 
@@ -59,17 +85,17 @@ button {
     margin: auto;
 }
 
-.grid-item-2 {
+#grid-item-2 {
     grid-column: 1;
     border-bottom: 3px solid #232323;
 }
 
-.grid-item-2 p {
+#grid-item-2 p {
     font-size: 1rem;
     margin: auto;
 }
 
-.grid-item-4 {
+#grid-item-4 {
     border-top: 3px solid #232323;
     border-bottom: 3px solid #232323;
 }
