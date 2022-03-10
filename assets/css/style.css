@@ -8,6 +8,21 @@ body {
     color: #232323;
 }
 
+#page-title {
+    letter-spacing: 2px;
+}
+
+#grid-item-2 {
+    grid-column: 1;
+    border-bottom: 3px solid #232323;
+}
+
+#grid-item-2 p {
+    font-size: 1.0rem;
+    font-weight: bold;
+    margin: auto;
+}
+
 #rules {
     text-align: center;
     padding-top: 20px;
@@ -30,7 +45,7 @@ body {
 }
 
 button {
-    font-size: larger;
+    font-size: 2.7rem;
     font-family: inherit;
     font-weight: bolder;
 }
@@ -86,16 +101,6 @@ button {
     margin: auto;
 }
 
-#grid-item-2 {
-    grid-column: 1;
-    border-bottom: 3px solid #232323;
-}
-
-#grid-item-2 p {
-    font-size: 1rem;
-    margin: auto;
-}
-
 #grid-item-4 {
     border-top: 3px solid #232323;
     border-bottom: 3px solid #232323;
@@ -107,4 +112,49 @@ button {
 
 #turn-reminder {
     visibility: hidden;
+}
+
+
+/* Media Queries */
+@media screen and (min-width: 500px) {
+    button {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 3rem;
+    }
+
+    .total-header {
+        font-size: 2rem;
+    }
+
+    #player-score, #computer-score {
+        font-size: 1.5rem;
+    }
+
+    #player-total, #computer-total {
+        font-size: 2rem;
+    }
+
+    #grid-item-4 {
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    #grid-item-6 {
+        margin-top: 3%;
+    }
+
+    #rules h2 {
+        font-size: 2.5rem;
+    }
+
+    #rules p {
+        font-size: 1.1rem;
+        padding-bottom: 3%;
+    }
+
+    #rules-button {
+        margin-top: 1%;
+    }
 }
