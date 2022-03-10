@@ -156,12 +156,31 @@ button {
     #rules-button {
         margin-top: 1%;
         height: 20%;
-        width: 30%;
+        width: 45%;
         border: 2px solid #232323;
         border-radius: 50%;
     }
 
     #player-cards, #computer-cards {
         font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #rules-button {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 730px) {
+    #rules-button {
+        margin-top: 5%;
+    }
+}
+
+@media screen and (min-width: 915px) {
+    #rules-button {
+        height: 40%;
+        width: 50%;
     }
 }
