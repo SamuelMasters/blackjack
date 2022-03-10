@@ -123,31 +123,46 @@ function resetVariables() {
 function startGame() {
     if (rulesToggle === true) {
         toggleRules();
-    }    
-    gridThree.style.visibility = 'visible';
-    gridFour.style.visibility = 'visible';
-    gridFive.style.visibility = 'visible';
-    gridSix.style.visibility = 'visible';
-    document.getElementById('grid-item-3').style.visibility = 'visible';
+    }
+    document.getElementById('grid-item-3').style.visibility = 'visible'; // check if/why this was added?
     console.log("Starting new game...");
     hitButton.innerText = 'HIT';
     hitButton.removeEventListener('click', startGame);
     opponentMessage.style.visibility = 'hidden'; // hides opponent message at the start of each new round
-    opponentMessage.innerHTML = "<strong>It is the opponent's turn!</strong>"; // resets opponent message at start of each new round
+    opponentMessage.innerHTML = "<strong>It is the computer's turn!</strong>"; // resets opponent message at start of each new round
     resetVariables();
     console.log('Variables have been reset.');
     dealStartingCards();
 
-    // The two for loops here check for aces in the opening hands, and 
-    // convert them to a numerical value of 10. 
+
+    // Checks for blackjacks, and assigns aces as 11 if they are present but not triggering a blackjack
     for (let i = 0; i < humanPlayedCards.length; i++) {
-        if (humanPlayedCards[i] === 'ace') {
-            humanPlayedCards[i] = 10;
-        }
-    }
-    for (let i = 0; i < computerPlayedCards.length; i++) {
-        if (computerPlayedCards[i] === 'ace') {
-            computerPlayedCards[i] = 10;
+        if (humanPlayedCards.includes(10) && humanPlayedCards.includes('ace')) {
+            playerScore++;
+            document.getElementById('player-score').innerHTML = `<strong>Player Score: ${playerScore}</strong>`;
+            playerMessage.innerHTML = `<strong>You got a blackjack!</strong>`;
+            hitButton.removeEventListener('click', hit);
+            hitButton.addEventListener('click', startGame);
+            hitButton.innerText = 'PLAY AGAIN?';
+            standButton.removeEventListener('click', stand);
+            standButton.style.visibility = 'hidden';
+            return;
+        } else if (computerPlayedCards.includes(10) && computerPlayedCards.includes('ace')) {
+            computerScore++;
+            document.getElementById('computer-score').innerHTML = `<strong>Opponent Score: ${computerScore}</strong>`;
+            opponentMessage.innerHTML = `<strong>The computer got a blackjack!</strong>`;
+            hitButton.removeEventListener('click', hit);
+            hitButton.addEventListener('click', startGame);
+            hitButton.innerText = 'PLAY AGAIN?';
+            standButton.removeEventListener('click', stand);
+            standButton.style.visibility = 'hidden';
+            return;
+        } else if (computerPlayedCards.includes('ace')) {
+            let x = computerPlayedCards.indexOf('ace');
+            computerPlayedCards[x] = 11;
+        } else if (humanPlayedCards.includes('ace')) {
+            let x = humanPlayedCards.indexOf('ace');
+            humanPlayedCards[x] = 11;
         }
     }
 
@@ -271,7 +286,7 @@ function evaluateComputerTotal() {
         computerStood = true;
         playerStood = true;
         console.log("The player's score has increased by 1.");
-        document.getElementById('player-score').innerHTML = `<strong>Your Score: ${playerScore}</strong>`;
+        document.getElementById('player-score').innerHTML = `<strong>Player Score: ${playerScore}</strong>`;
         hitButton.removeEventListener('click', hit);
         hitButton.innerText = 'PLAY AGAIN?';
         hitButton.addEventListener('click', startGame);
@@ -360,7 +375,6 @@ function convertRoyals() {
 }
 
 function stand() {
-    // alert("The 'stand' button was pressed!");
     if (turnOwner === 'computer' && playerStood === false) {
         computerStood = true;
         opponentMessage.innerHTML = `<strong>The computer has stood.</strong>`;
@@ -391,7 +405,6 @@ function stand() {
 }
 
 function hit() {
-    // alert("The 'hit' button was pressed!");
     dealCard();
     // if (turnOwner === 'player') {
     //     handleAce();
@@ -478,11 +491,11 @@ function switchTurn() {
  */
 function handleAce() {
     if (turnOwner === 'computer' && computerPlayedCards.includes('ace')) {
-        if (computerTotal < 12) {
+        if (computerTotal <= 10) {
             i = computerPlayedCards.indexOf('ace');
-            computerPlayedCards[i] = 10;
-            console.log("Ace was evaluated for CPU, and set as 10.")
-        } else if (computerTotal >= 12) {
+            computerPlayedCards[i] = 11;
+            console.log("Ace was evaluated for CPU, and set as 11.")
+        } else if (computerTotal >= 11) {
             i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 1;
             console.log("Ace was evaluated for CPU, and set as 1.");
@@ -491,11 +504,11 @@ function handleAce() {
         }
     }
     if (turnOwner === 'player' && humanPlayedCards.includes('ace')) {
-        if (playerTotal < 12) {
+        if (playerTotal <= 10) {
             i = humanPlayedCards.indexOf('ace');
-            humanPlayedCards[i] = 10;
+            humanPlayedCards[i] = 11;
             console.log("Ace was evaluated for player, and set as 10.")
-        } else if (playerTotal >= 12) {
+        } else if (playerTotal >= 11) {
             i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 1;
             console.log("Ace was evaluated for player, and set as 1.")
@@ -514,7 +527,7 @@ function evaluateWinner() {
         if (playerTotal > computerTotal && playerTotal < 22) {
 
             playerScore++;
-            document.getElementById('player-score').innerHTML = `<strong>Your Score: ${playerScore}</strong>`;
+            document.getElementById('player-score').innerHTML = `<strong>Player Score: ${playerScore}</strong>`;
             resetVariables();
             console.log('You won the round!');
             // console.log('Starting new game automatically from evaluateWinner() function...');
