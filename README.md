@@ -2,13 +2,13 @@
 
 ## By Samuel Masters
 
-![Front page as seen on different device screen sizes.](assets/images/responsive.png)
+![Front page as seen on different device screen sizes.](assets/images/front-page.png)
 
-#### This project was developed to act as my first portfolio project, based on HTML/CSS Essentials, as part of my Diploma in Software Development with Code Institute.
+#### This project was developed to act as my second portfolio project, based on JavaScript Essentials, as part of my Diploma in Software Development with Code Institute.
 
-### [Click here to view the website.](https://samuelmasters.github.io/local-cleaners-ms1/)
+### [Click here to view the website.](https://samuelmasters.github.io/blackjack/)
 
-### [Click here to view the public repository.](https://github.com/SamuelMasters/local-cleaners-ms1)
+### [Click here to view the public repository.](https://github.com/SamuelMasters/blackjack)
 
 
 # Table of Contents:
@@ -38,83 +38,63 @@
 
 # The Why
 
-The purpose of the website is to advertise the services of a fictional cleaning company, 'Marigolds', by providing the user with information on what the company does, the services they offer, testimonials from previous fictional clients, and contact details for interested users. 
+The purpose of the web application is to allow users to play quick rounds of a  simplified version of the popular card game 'blackjack' (AKA 21) against the computer. 
 
 # User Experience (UX)
 
 ## Target Audience
 
-- People who are searching for cleaning services.
-- People who prefer clear and consise information.
-- People who live in their own house. 
-- People who manage shared working spaces, such as offices. 
+- People who are idle for short periods of time.
+- People who prefer clean, minimalist interfaces.
+- People who are bored and want to play a brief, solo card game. 
 
 ## Strategy
 
-To develop a website which provides users with the core information of why they might be interested in hiring this service. Simple, consistent styling with a 'clean' approach across all pages that helps users to quickly find and confirm the information they are searching for regarding the business and services offered.  
+To develop a web application that lets users quickly and easily jump into quick-fire rounds of blackjack, even for only a minute or two per session. Key information about how to play and how the application works are presented to the user on the landing page. 
 
 ### Project Goals
 
-- To develop a static HTML/CSS only website which advertises the business. 
-- To provide pertinent information to visitors who may have been searching for cleaning services. 
-- To present that information in a way that is accessible and convenient for all users. 
+- To develop a simplified version of blackjack . 
+- To inform users who might not already know how to play blackjack about the rules of the game. 
+- To enable users to play quick-fire rounds of the game whilst still presenting key information in a way that avoids user confusion. 
 
 ## Scope:
 
-The scope of the Marigolds website at the time of submission is as set out by the features below:
+The scope of the Blackjack application at the time of submission is as set out by the features below:
 
-- Consistent header across pages with prominent company logo and navbar with links to other page
-- Introductory information on home page including a call to action for users to learn more about the available services. 
-- Social icons pointing to placeholder addresses, including one which opens up the user's default mail client. 
-- Information around available services presented in a consistent, standardised format. 
-- Testimonial quotes from previous clients, with ratings portrayed for coloured star icons. 
-- Contact form with where users would be able to contact the business 'in-site'. 
+- Consistent 'casino green' color scheme across text content and game interface
+- Information on how to play the game and the specifics of how this version of the game is played through the web app ('aces high', for example).
+- Automatic calculation of hand totals, generation of a virtual 'deck of cards' (values only, no suits) from which values are randomly chosen. 
+- Automatic evaluation of the winner of each round. 
+- Automatic play by the computer (via JavaScript) which simulates the appearance of stategy. 
+- Large, easily accessible buttons that the user can interact with to play the same, view the rules, or start a fresh game.  
 
 If the project were to be revisited in the future, the following features would be considered:
 
-- Light 'fade-in' animations on site content (excluding contact form).
-- Functional contact form that can submit a user-populated message template to an email address.
-- An in-site booking system for added convenience to users and business owners
+- Image elements of actual cards that would replace the simple numerical values used in this iteration.
+- Improved virtual strategy for the computer's turns, rather than the simple controlled randomness of the computer's current logic. 
+- Modify the game rules to allow a player to choose whether they want to play an ace as a 11 or 1, rather than having it be automatically assigned. 
 
 ## Structure
 
-The website's structure has been designed to be straightforward and easily understandable to all users who see it, with intuitive learning in mind. The information provided is intended to be concise, and only focuses on important details. The navigation bar stays in a static position in the top-right so that users cannot get 'lost'. 
+The application's structure is very simply, and consists of only two main parts; the rules, and the game interface itself, with a simple persistent banner.
 
-- Header
+- How to Play / Rules
 
-  - The company logo doubles as a link back to the home page of the site.
-  - The navbar has it's vertical centering matched against the company logo for visual consistency, and is present in the same place throughout all pages. 
+  - Text content informs the user on what the game is, how it is played and won, and how they can interact with the game by via the 'Hit' and 'Stand' buttons. 
 
-- Home
+- Game Interface
 
-  - Hero image which relates to the nature of the business, and invokes a positive emotional response.
-  - Heading with clear information about who the business is, what it offers, and a call to action to learn more. 
-  - Social icons presented lower down in the page, leading to social media accounts and direct email contact. 
-	
+  - The interface itself consists of your opponent (the computer's) section, the player (the user's) section, and two large buttons at the bottom of the page. 
 
-- Services
-
-  - Information about three different service options, including price and features of each service. 
-  - Different icons per option to represent the different levels of service and help provide distinction between them. 
-
-- Testimonials
-
-  - Quotes from previous clients, with a large quote heading, client name, and date details.
-  - Star icons indicating the rating given by the customer. 
-
-- Contact Us
-
-  - Header including a call to action for the user to get in touch. 
-  - Contact form which enables the user to reach out to the business without having to go off-site. 
 
 ## Skeleton
 
 ### Wireframes
 
-- [Home](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/home-compressed.png)
-- [Services](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/services-compressed.png)
-- [Testimonials](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/testimonials-compressed.png)
-- [Contact Us](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/contact-compressed.png)
+- [Mobile](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/home-compressed.png)
+- [Desktop](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/services-compressed.png)
+- [Functions](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/testimonials-compressed.png)
 
 ## Surface
 

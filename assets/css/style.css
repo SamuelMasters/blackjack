@@ -8,10 +8,12 @@ body {
     color: #232323;
 }
 
+/* Page logo */
 #page-title {
     letter-spacing: 2px;
 }
 
+/* Contains 'Reset' and 'Rules' buttons */
 #grid-item-2 {
     grid-column: 1;
     border-bottom: 3px solid #232323;
@@ -40,6 +42,7 @@ body {
     padding-bottom: 5%;
 }
 
+/* Game interface wrapper */
 #grid-item-3,
 #grid-item-4,
 #grid-item-5,
@@ -85,7 +88,6 @@ button {
 
 .grid-item {
     display: grid;
-    /* border: 1px solid red; */
     grid-column: 1;
     text-align: center;
 }
@@ -121,7 +123,7 @@ button {
 }
 
 
-/* Media Queries */
+/* Media queries for screens up to 500px */
 @media screen and (min-width: 500px) {
     button {
         width: 75%;
@@ -170,24 +172,35 @@ button {
         border-radius: 50%;
     }
 
+    #computer-total,
+    #computer-cards,
+    #player-total,
+    #player-cards {
+        position: relative;
+        bottom: 30px;
+    }
+
     #player-cards,
     #computer-cards {
         font-size: 1.5rem;
     }
 }
 
+/* Media queries for screens up to 600px */
 @media screen and (min-width: 600px) {
     #rules-button {
         width: 50%;
     }
 }
 
+/* Media queries for screens up to 730px */
 @media screen and (min-width: 730px) {
     #rules-button {
         margin-top: 5%;
     }
 }
 
+/* Media queries for screens up to 915px */
 @media screen and (min-width: 915px) {
     #rules-button {
         height: 40%;
@@ -195,6 +208,7 @@ button {
     }
 }
 
+/* Media queries for screens up to 1200px */
 @media screen and (min-width: 1200px) {
     #grid-item-2 {
         position: relative;
@@ -215,6 +229,14 @@ button {
         border-radius: 0%;
         font-size: 3rem;
         margin-bottom: 5%;
+    }
+
+    #computer-total,
+    #computer-cards,
+    #player-total,
+    #player-cards {
+        position: relative;
+        bottom: 40px;
     }
 
     #rules h2 {
@@ -239,13 +261,6 @@ button {
     #grid-item-6 {
         margin-top: 5%;
         position: relative;
-        /* top: 50px; */
-    }
-
-    #player-cards,
-    #computer-cards {
-        position: relative;
-        bottom: 20px;
     }
 
     #hit-button,
@@ -254,6 +269,7 @@ button {
     }
 }
 
+/* Media queries for screens up to 1500px and higher */
 @media screen and (min-width: 1500px) {
     #grid-item-2 {
         padding-bottom: 3%;

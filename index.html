@@ -19,7 +19,8 @@
             <p><a href="#" id="reset-button">Reset</a> | <a href="#" id="rules-header">Rules</a></p>
             <section id="rules">
                 <h2>How to Play</h2>
-                <p>In this game, your objective is to get your 'hand' (the cards you've played) as close to 21 as
+                <p>In this game, your objective is to draw cards (numerical values in this application) with the aim of
+                    getting your 'hand' (the cards you've played) as close to 21 as
                     possible, without exceeding it.</p>
                 <p>All cards are worth their face value as they would be in a real deck of cards.</p>
                 <p>'Royal' cards are always worth 10, and aces are worth 11 if your hand total is equal to 10 or less at
@@ -29,7 +30,7 @@
                 <p>Choosing 'Hit' will deal you another card, which will then count to your total. If your new hand
                     total makes your hand total exceed 21, you have 'bust' and lost the round.</p>
                 <p>Choosing 'Stand' will mean you will no longer take any turns until your opponent also stands, or goes
-                    'bust'.</p>
+                    'bust' themselves.</p>
                 <p>In the event that both players stand, the player with the highest hand total under 21 wins!</p>
                 <p>If you wish to review these rules again after starting, simply click/tap 'Rules' at the top of the
                     page. Select 'Reset' if you wish to reset both scores to 0 and start a new game.</p>
@@ -37,10 +38,10 @@
             </section>
         </div>
         <div class="grid-item" id="grid-item-3">
-            <p class="total-header">
+            <div class="total-header">
                 <strong>Opponent's Total</strong>
                 <p id="opponent-message"><strong>It is the opponent's turn!</strong></p>
-            </p>
+            </div>
             <h2 id="computer-total">0</h2>
             <h3 id="computer-cards">[]</h3>
         </div>
@@ -49,10 +50,10 @@
             <p id="player-score"><strong>Player Score: 0</strong></p>
         </div>
         <div class="grid-item" id="grid-item-5">
-            <p class="total-header">
+            <div class="total-header">
                 <strong>Your Total</strong>
                 <p id="turn-reminder"><strong>It is your turn!</strong></p>
-            </p>
+            </div>
             <h2 id="player-total">0</h2>
             <h3 id="player-cards">[]</h3>
         </div>
