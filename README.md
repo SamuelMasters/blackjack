@@ -168,37 +168,46 @@ No images or icons were used in this project, except for the Favicon, which was 
 
 ### [W3 HTML Validation](https://validator.w3.org/)
 
-The single HTML document in this project passed with no errors. . 
+The single HTML document in this project passed with no errors. 
 - [Index](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Fblackjack%2F)
+
+![Project URL passing through W3C HTML validator.](assets/testing/html-validator.png)
 
 ### [Jigsaw CSS Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fsamuelmasters.github.io%2Fblackjack%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
+![Project URL passing through Jigsaw CSS validator.](assets/testing/css-validator.png)
+
 This project's style.css document has been passed through the CSS validator with no errors, and successfully validates as CSS level 3 + SVG. 
+
+### [JSHint](https://jshint.com/)
+
+![JavaScript code evaluation from JSHint validator.](assets/testing/js-validator.png)
+
+The JavaScript code written for this project was passed through JSHint, a code analysis tool, and returned no errors. It did, however, return a substantial amount of warnings regarding syntax used that was only compatible with ECMAScript 2015 / ES6. There were two features used that triggered these warnings, the use of the 'let' variable declaration keyword, and the use of template literals. If JSHint is configured to assume 'New JavaScript features' however, the code passes with no warnings. 
 
 ## Browser Compatibility
 The website was tested across Chrome, Firefox, and Edge browsers.
 
 - Chrome
-![Front page as seen on from the Google Chrome browser.](assets/testing/chrome-test.png)
+![Game interface as seen on from the Google Chrome browser.](assets/testing/chrome-browser.png)
 
 - Edge
-![Front page as seen from the Microsoft Edge browser.](assets/testing/edge-test.png)
+![Game interface as seen from the Microsoft Edge browser.](assets/testing/edge-browser.png)
 
 - Firefox
-![Front page as seen from the Mozilla Firefox browser](assets/testing/firefox-test.png)
+![Game interface as seen from the Mozilla Firefox browser](assets/testing/firefox-browser.png)
 
 ## Responsiveness
 
-This project utilised media queries to ensure that the website's design remains acceptable from screen sizes of 335px and upwards.
+This project was created with a mobile-first approach, meaning that the layout and design was designed with a mobile screen first. Media queries were used to make the content adapt to larger screen sizes. 
 
 ## Bugs & Fixes
 
 1. Fixed -- W3 HTML Validator Errors
-   - When the project's HTML was first run through the validator, it returned an error due to usage of a paragraph tag nested within a unordered list element. This was initially done to provide a space to put the '|' operator in the navigation bar. To fix this error, I simply replaced the paragraph tags with additional list items tags to house the operator instead. 
-2. Unresolved -- W3 HTML Validator Warnings
-   - At the same time as seeing the errors being returned above, an additional warning was presented, specifying that a section within index.html should include a heading tag somewhere. The section in question however was only containing the hero image, and as such did not require a heading. Therefore, in this instance the warning was left unresolved, but the section was left in to keep semantic distinction.  
-3. Unresolved - Firefox Text Rendering
-   - During testing, the Firefox browser appeared to render the chosen font in a lighter, thinner style than intended. This appeared to be a problem exclusive to this particular browser, as this issue was not replicated on other browsers. After some research, it appears that the cause of the bug is a difference in the font-rendering engine used for Firefox compared to that of Edge and Chrome. Because of the nature of this issue, I was unable to standardise the font-weights across the browsers. The lighter font weight is consistent across the site on Firefox, however. 
+   - During the first round of validation, an error was returned which indicated that paragraph tags were being used incorrectly, as they contained other block-level elements within them. I resolved this error by replacing the parent elements with a section element instead of the paragraph element. 
+2. Fixed -- Looping functions
+   - The debugging process showed that functions were being called at the end of each round of the game when they were not supposed to, which meant at one point the game was looping itself unendingly. The was fixed by changing the order in which functions were called in the code, and refactoring some of the functions themselves to reduce multiple calls to the same function.  
+
 
 # Deployment
 
@@ -226,7 +235,7 @@ It was achieved via the following steps:
 If you wish to clone the repository to make a dynamic copy of this project, you may do so via the following steps: 
 
 1. Navigate to your GitHub account and log in. 
-2. Navigate to the [repository](https://github.com/SamuelMasters/local-cleaners-ms1). 
+2. Navigate to the [repository](https://github.com/SamuelMasters/blackjack). 
 3. Click 'Code', and on the dropdown menu, click the copy icon alongside the provided URL. 
 4. Open Gitpod in your own repository, and open a terminal. 
 5. Type 'git clone ' followed by the URL you copied in the previous steps.
@@ -237,7 +246,7 @@ If you wish to clone the repository to make a dynamic copy of this project, you 
 If you wish to fork the repository to make a static, independent copy of this project, you may do so via the following steps: 
 
 1. Navigate to your GitHub account and log in. 
-2. Navigate to the [repository](https://github.com/SamuelMasters/local-cleaners-ms1). 
+2. Navigate to the [repository](https://github.com/SamuelMasters/blackjack). 
 3. In the top-right corner, click 'Fork'. 
 4. You should now have a copy of the original repository amongst your other repositories. 
 
@@ -252,8 +261,6 @@ Copying a repository in this way allows you to make changes to the code without 
 2. [MDN Web Docs](https://developer.mozilla.org/en-US/)
    - An incredibly useful reference which was used frequently throughout development of the website.
 3. [Chris Quinn](https://github.com/10xOXR)
-   - Chris' guidance and direction were a particular help with this, my first portfolio project. Thank you! 
-4. [Pexels](https://www.pexels.com/)
-   - The [main image](https://www.pexels.com/photo/housekeepers-standing-back-to-back-and-smiling-9462614/) used on the front page of this site was created by [Liliana Drew](https://www.pexels.com/@liliana-drew), and was found on Pexels. The image was marked as 'Free to Use' and was used in accordance with the site's [licensing rules](https://www.pexels.com/license/). 
-5. [Favicon.io](https://favicon.io/)
+   - Chris' guidance and direction were a particular help with this, my first portfolio project. Thank you!  
+4. [Favicon.io](https://favicon.io/)
    - The site's favicon was found on the website [favicon.io]() and was used in this project under the [Creative Commons 4.0 license](https://creativecommons.org/licenses/by/4.0/legalcode). The icon was available as part of the open source [Twemoji](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9fc.svg) project. 
