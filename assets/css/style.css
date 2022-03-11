@@ -184,3 +184,52 @@ button {
         width: 50%;
     }
 }
+
+@media screen and (min-width: 1200px) {
+    #grid-item-2 {
+        position: relative;
+        top: 15px;
+        padding-bottom: 4%;
+    }
+
+    #page-title {
+        font-size: 3.5rem;
+    }
+
+    #grid-item-2 p {
+        font-size: 1.5rem;
+    }
+
+    #rules-button {
+        height: 20%;
+        border-radius: 0%;
+        font-size: 3rem;
+    }
+
+    #rules h2 {
+        font-size: 3rem;
+    }
+
+    #grid-item-4 {
+        height: 85px;
+    }
+
+    #grid-item-5 {
+        margin-top: 6% !important;
+    }
+
+    #grid-item-6 {
+        margin-top: 8% !important;
+    }
+
+    #grid-item-3, #grid-item-4, #grid-item-5, #grid-item-6 {
+        margin-top: 5%;
+        position: relative;
+        /* top: 50px; */
+    }
+
+    #player-cards, #computer-cards {
+        position: relative;
+        bottom: 20px;
+    }
+}
