@@ -239,3 +239,26 @@ button {
         height: 150px;
     }
 }
+
+@media screen and (min-width: 1500px) {
+    #grid-item-2 {
+        padding-bottom: 3%;
+    }
+    
+    #grid-item-2 p {
+        font-size: 1.3rem;
+    }
+
+    #rules-button {
+        margin-top: 0;
+    }
+
+    #hit-button, #stand-button {
+        height: 90px;
+        width: 35%;
+    }
+
+    #rules h2 {
+        margin-bottom: 2%;
+    }
+}

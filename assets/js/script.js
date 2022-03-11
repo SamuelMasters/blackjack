@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     standButton.style.visibility = 'hidden';
     document.getElementById('opponent-message').style.visibility = 'hidden';
     document.getElementById('rules-header').addEventListener('click', toggleRules);
+    document.getElementById('reset-button').addEventListener('click', hardReset);
 });
 
 function toggleRules() {
@@ -97,6 +98,7 @@ function resetCardDeck() {
  */
 function resetVariables() {
     hitButton.removeEventListener('click', hit);
+    hitButton.innerText = 'HIT';
     opponentMessage.innerHTML = `<strong>It is the computer's turn!</strong>`;
     opponentMessage.style.visibility = 'hidden';
     playerMessage.innerHTML = `<strong>It is your turn.</strong>`
@@ -173,6 +175,15 @@ function startGame() {
     standButton.style.visibility = 'visible';
     standButton.addEventListener('click', stand);
 }
+
+function hardReset() {
+    computerScore = 0;
+    playerScore = 0;
+    document.getElementById('computer-score').innerHTML = `<strong>Opponent Score: ${computerScore}</strong>`;
+    document.getElementById('player-score').innerHTML = `<strong>Player Score: ${playerScore}</strong>`;
+    setTimeout(startGame, 3000);
+}
+
 
 /**
  * Generates a random index within the cardDeck array, removes
@@ -538,7 +549,7 @@ function evaluateWinner() {
             return;
         } else if (playerTotal < computerTotal && computerTotal < 22) {
             computerScore++;
-            document.getElementById('computer-score').innerText = `Opponent Score: ${computerScore}`;
+            document.getElementById('computer-score').innerHTML = `<strong>Opponent Score: ${computerScore}</strong>`;
             console.log('The computer won the round!');
             hitButton.removeEventListener('click', hit);
             hitButton.innerText = 'PLAY AGAIN?';
