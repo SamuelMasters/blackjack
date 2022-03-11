@@ -62,6 +62,7 @@ button {
     border-left: 5px solid #232323;
     border-right: 5px solid #232323;
     border-bottom: 5px solid #232323;
+    visibility: hidden;
 }
 
 #rules-button {
@@ -204,6 +205,7 @@ button {
         height: 20%;
         border-radius: 0%;
         font-size: 3rem;
+        margin-bottom: 5%;
     }
 
     #rules h2 {
@@ -231,5 +233,9 @@ button {
     #player-cards, #computer-cards {
         position: relative;
         bottom: 20px;
+    }
+
+    #hit-button, #stand-button {
+        height: 150px;
     }
 }

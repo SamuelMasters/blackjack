@@ -31,7 +31,6 @@ function toggleRules() {
         gridFour.style.visibility = 'visible';
         gridFive.style.visibility = 'visible';
         gridSix.style.visibility = 'visible';
-        standButton.style.visibility = 'visible';
     } else if (rulesToggle === false) {
         rulesInterface.style.visibility = 'visible';
         rulesToggle = true;
