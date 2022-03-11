@@ -40,7 +40,10 @@ body {
     padding-bottom: 5%;
 }
 
-#grid-item-3, #grid-item-4, #grid-item-5, #grid-item-6 {
+#grid-item-3,
+#grid-item-4,
+#grid-item-5,
+#grid-item-6 {
     visibility: hidden;
 }
 
@@ -83,11 +86,13 @@ button {
 .grid-item {
     display: grid;
     /* border: 1px solid red; */
-    grid-column: 1;  
+    grid-column: 1;
     text-align: center;
 }
 
-.grid-item p, #grid-item h2, #grid-item h3 {
+.grid-item p,
+#grid-item h2,
+#grid-item h3 {
     margin: auto;
 }
 
@@ -106,7 +111,8 @@ button {
     border-bottom: 3px solid #232323;
 }
 
-#computer-score, #player-score {
+#computer-score,
+#player-score {
     font-size: large;
 }
 
@@ -128,11 +134,13 @@ button {
         font-size: 2rem;
     }
 
-    #player-score, #computer-score {
+    #player-score,
+    #computer-score {
         font-size: 1.5rem;
     }
 
-    #player-total, #computer-total {
+    #player-total,
+    #computer-total {
         font-size: 2rem;
     }
 
@@ -162,7 +170,8 @@ button {
         border-radius: 50%;
     }
 
-    #player-cards, #computer-cards {
+    #player-cards,
+    #computer-cards {
         font-size: 1.5rem;
     }
 }
@@ -224,18 +233,23 @@ button {
         margin-top: 8% !important;
     }
 
-    #grid-item-3, #grid-item-4, #grid-item-5, #grid-item-6 {
+    #grid-item-3,
+    #grid-item-4,
+    #grid-item-5,
+    #grid-item-6 {
         margin-top: 5%;
         position: relative;
         /* top: 50px; */
     }
 
-    #player-cards, #computer-cards {
+    #player-cards,
+    #computer-cards {
         position: relative;
         bottom: 20px;
     }
 
-    #hit-button, #stand-button {
+    #hit-button,
+    #stand-button {
         height: 150px;
     }
 }
@@ -244,7 +258,7 @@ button {
     #grid-item-2 {
         padding-bottom: 3%;
     }
-    
+
     #grid-item-2 p {
         font-size: 1.3rem;
     }
@@ -253,7 +267,8 @@ button {
         margin-top: 0;
     }
 
-    #hit-button, #stand-button {
+    #hit-button,
+    #stand-button {
         height: 90px;
         width: 35%;
     }

@@ -12,7 +12,7 @@ let gridFive = document.getElementById('grid-item-5');
 let gridSix = document.getElementById('grid-item-6');
 let grids = [gridThree, gridFour, gridFive, gridSix];
 
-
+// Initial setup of event listeners
 document.addEventListener('DOMContentLoaded', function () {
     rulesButton.addEventListener('click', startGame);
     hitButton.innerText = 'START GAME!';
@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('reset-button').addEventListener('click', hardReset);
 });
 
+
+/**
+ * Toggles visibility of the rules interface. Attached via event listener to 'Rules' button. 
+ */
 function toggleRules() {
     if (rulesToggle === true) {
         rulesInterface.style.visibility = 'hidden';
@@ -54,29 +58,8 @@ let computerScore = 0; // represents rounds won by the computer in the current s
 let playerScore = 0; // represents rounds won by the player in the current session
 let playerStood = false; // indicates whether the player has stood down
 let computerStood = false; // indicates whether the computer has stood down
-
-// Generate a full deck of 52 'cards' / values
-// Consider putting this in a function to allow for repeated resets after each game
-let cardDeck = [];
+let cardDeck = []; // Generate a full deck of 52 'cards' / values
 let values = ["ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "king", "queen"];
-
-/**
- * Logs the selected variables to the console, used for 
- debugging purposes.
- */
-function logVariables() {
-    console.log('Cards remaining: ' + cardDeck.length);
-    console.log('Whose turn is it? ' + turnOwner);
-    console.log('Computer hand: ' + computerPlayedCards);
-    console.log('Computer Total: ' + computerTotal);
-    console.log('Player hand: ' + humanPlayedCards);
-    console.log('Player Total: ' + playerTotal);
-    console.log('Risk Value: ' + riskValue);
-    console.log('Player stood? ' + playerStood);
-    console.log('Computer stood? ' + computerStood);
-    console.log('Player Score: ' + playerScore);
-    console.log('Computer Score: ' + computerScore);
-}
 
 /**
  * Resets the cardDeck variable to an empty array, then generates a new set
@@ -115,24 +98,24 @@ function resetVariables() {
     riskValue = 0;
     playerStood = false;
     computerStood = false;
-    console.log('playerStood, computerStood, playerTotal, computerTotal all reset, and turnOwner set to player.');
     resetCardDeck();
 
 }
 
-
+/**
+ * Starts a new round of the game, calls functions to reset variables, regenerate deck, 
+ * and deal starting cards. 
+ */
 function startGame() {
     if (rulesToggle === true) {
         toggleRules();
     }
     document.getElementById('grid-item-3').style.visibility = 'visible'; // check if/why this was added?
-    console.log("Starting new game...");
     hitButton.innerText = 'HIT';
     hitButton.removeEventListener('click', startGame);
     opponentMessage.style.visibility = 'hidden'; // hides opponent message at the start of each new round
     opponentMessage.innerHTML = "<strong>It is the computer's turn!</strong>"; // resets opponent message at start of each new round
     resetVariables();
-    console.log('Variables have been reset.');
     dealStartingCards();
 
 
@@ -147,7 +130,6 @@ function startGame() {
             hitButton.innerText = 'PLAY AGAIN?';
             standButton.removeEventListener('click', stand);
             standButton.style.visibility = 'hidden';
-            return;
         } else if (computerPlayedCards.includes(10) && computerPlayedCards.includes('ace')) {
             computerScore++;
             document.getElementById('computer-score').innerHTML = `<strong>Opponent Score: ${computerScore}</strong>`;
@@ -157,7 +139,6 @@ function startGame() {
             hitButton.innerText = 'PLAY AGAIN?';
             standButton.removeEventListener('click', stand);
             standButton.style.visibility = 'hidden';
-            return;
         } else if (computerPlayedCards.includes('ace')) {
             let x = computerPlayedCards.indexOf('ace');
             computerPlayedCards[x] = 11;
@@ -168,7 +149,6 @@ function startGame() {
     }
 
     evaluateCards();
-    console.log('evaluateCards() called from startGame() function.');
 
     playerMessage.style.visibility = 'visible';
     hitButton.addEventListener('click', hit);
@@ -176,6 +156,9 @@ function startGame() {
     standButton.addEventListener('click', stand);
 }
 
+/**
+ * Resets both scores, and then starts a new game after a short delay. 
+ */
 function hardReset() {
     computerScore = 0;
     playerScore = 0;
@@ -211,43 +194,40 @@ function dealStartingCards() {
     activeCard = chooseRandomCard();
     humanPlayedCards.push(activeCard);
     document.getElementById('player-cards').innerText = `[${humanPlayedCards}]`;
-    console.log(`The player's opening cards are ${humanPlayedCards}.`);
     document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
-    console.log(`The computer's opening cards are ${computerPlayedCards}.`);
 }
 
 /**
  * Evaluates whether a random number between 0 - 1 exceeds the current 
- * riskValue variable, and hits or stands accordingly. 
+ * riskValue variable, and hits or stands accordingly. Handles a rough appropriation
+ * of how an opponent might play. 
  */
 function computerTurn() {
     evaluateRisk();
     let randomValue = Math.random();
-    console.log(`Random value is: ${randomValue}`);
-    if (randomValue > riskValue) {
+    if (randomValue > riskValue) { // hits if the riskValue is exceeded
         hit();
     } else if (playerTotal < computerTotal === true && playerStood === true) { // the computer should stand if it exceeds the playerTotal and the player has stood
         stand();
         opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
-    } else if (playerTotal === computerTotal && randomValue < riskValue) {
+    } else if (playerTotal === computerTotal && randomValue < riskValue) { // settles on a tie if riskValue is not exceeded 
         stand();
         opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
-    } else if (randomValue < riskValue && playerTotal < computerTotal === true) {
+    } else if (randomValue < riskValue && playerTotal < computerTotal) { // stands if the current total exceeds the players, and riskValue is not exceeded 
         stand();
         opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
-    } else if (playerStood === true && playerTotal > computerTotal) {
+    } else if (playerStood === true && playerTotal > computerTotal) { // hits if the player has already stood and the computer total is lower than the player's 
         hit();
     } else {
         stand();
         opponentMessage.innerHTML = '<strong>The computer has stood.</strong>';
         opponentMessage.style.visibility = 'visible';
-        console.log('No evaluation matched for computerTurn() function, defaulting to stand().'); // testing shows that this triggers when it shouldn't
     }
 
-    if (playerStood === true && computerStood === false) {
+    if (playerStood === true && computerStood === false) { // loops the computers turn if the player has stood, and the computer has not
         computerTurn();
     }
 }
@@ -259,16 +239,12 @@ function computerTurn() {
  */
 function dealCard() {
     if (turnOwner === 'player') {
-        console.log('The player chose hit, and is about to be dealt another card.');
         humanPlayedCards.push(chooseRandomCard());
         document.getElementById('player-cards').innerText = `[${humanPlayedCards}]`;
-        console.log(`The player's cards are now ${humanPlayedCards}.`)
         evaluatePlayerTotal();
     } else if (turnOwner === 'computer') {
-        console.log('The computer chose hit, and is about to be dealt another card.');
         computerPlayedCards.push(chooseRandomCard());
         document.getElementById('computer-cards').innerText = `[${computerPlayedCards}]`;
-        console.log(`The computer's cards are now ${computerPlayedCards}.`);
         evaluateComputerTotal();
     } else {
         throw 'turnOwner variable is invalid! [dealCard() function]';
@@ -280,7 +256,7 @@ function dealCard() {
  * computer's hand exceeds 21 ('bust'). 
  */
 function evaluateComputerTotal() {
-    convertRoyals(); // converts 'royal' cards to a numerical value of 10  
+    convertRoyals();
 
     computerTotal = computerPlayedCards.reduce(function (a, b) { // https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php
         return a + b; // sums the numerical values of PlayedCards arrays
@@ -290,27 +266,21 @@ function evaluateComputerTotal() {
 
     // checks if the computer has gone bust
     if (computerTotal > 21) {
-        console.log('The computer has gone bust!');
         opponentMessage.innerHTML = '<strong>The computer has bust!</strong>';
         playerScore++;
         computerStood = true;
         playerStood = true;
-        console.log("The player's score has increased by 1.");
         document.getElementById('player-score').innerHTML = `<strong>Player Score: ${playerScore}</strong>`;
         hitButton.removeEventListener('click', hit);
         hitButton.innerText = 'PLAY AGAIN?';
         hitButton.addEventListener('click', startGame);
         standButton.style.visibility = 'hidden';
         return;
-    } else if (computerTotal === 21) {
+    } else if (computerTotal === 21) { // automatically makes the computer stand if it hits a total of 21
         computerStood = true;
-        console.log('The computer has automatically stood, having reached 21.');
         opponentMessage.innerHTML = `<strong>The computer has stood.</strong>`;
         opponentMessage.style.visibility = 'visible';
     }
-
-    console.log(`Computer total is now ${computerTotal}.`);
-    // return computerTotal;
 }
 
 /**
@@ -326,13 +296,11 @@ function evaluatePlayerTotal() {
     document.getElementById('player-total').innerText = `${playerTotal}`;
 
     if (playerTotal > 21) {
-        console.log("You've gone bust!");
         playerMessage.innerHTML = `<strong>You've gone bust!</strong>`;
         playerMessage.style.visibility = 'visible';
         computerScore++;
         computerStood = true;
         playerStood = true;
-        console.log("The computer's score has incremented by 1.");
         // computerStood = true;
         playerStood = true;
         document.getElementById('computer-score').innerHTML = `<strong>Opponent Score: ${computerScore}</strong>`;
@@ -343,12 +311,9 @@ function evaluatePlayerTotal() {
         return;
     } else if (playerTotal === 21) {
         playerStood = true;
-        console.log("The player automatically stands, having reached 21.");
         playerMessage.innerHTML = `<strong>You have stood.</strong>`;
         playerMessage.style.visibility = 'visible';
     }
-    console.log(`Player total is now ${playerTotal}.`);
-    // return playerTotal;
 }
 
 /**
@@ -356,16 +321,14 @@ function evaluatePlayerTotal() {
  * player and computer hand totals.
  */
 function evaluateCards() {
-    // handleAce();
     evaluateComputerTotal();
     evaluatePlayerTotal();
-    // document.getElementById('computer-total').innerText = `${computerTotal}`; // updates the hand total value on game interface
-    // document.getElementById('player-total').innerText = `${playerTotal}`; // updates the hand total value on game interface
 }
 
 /**
  * Looks for 'royal' cards in player and computer hands, and converts
- * them to the numerical value of 10. 
+ * them to the numerical value of 10. Searches for aces, and call the handleAce function
+ * if they are found in either player's hand. 
  */
 function convertRoyals() {
     for (let i = 0; i < computerPlayedCards.length; i++) {
@@ -384,43 +347,40 @@ function convertRoyals() {
     }
 }
 
+/**
+ * Prevents the player/computer from taking additional turns, 
+ * displays a message to the user, and switches the turnOwner. 
+ */
 function stand() {
-    if (turnOwner === 'computer' && playerStood === false) {
+    if (turnOwner === 'computer' && playerStood === false) { 
         computerStood = true;
         opponentMessage.innerHTML = `<strong>The computer has stood.</strong>`;
         opponentMessage.style.visibility = 'visible';
-        console.log('The computer has chosen to stand.');
         switchTurn();
-        return;
     } else if (turnOwner === 'player' && computerStood === false) {
         playerStood = true;
         playerMessage.innerHTML = `<strong>You have stood.</strong>`;
         playerMessage.style.visibility = 'visible';
-        console.log('The player has chosen to stand.');
         switchTurn();
-        return;
     } else if (turnOwner === 'computer' && playerStood === true) {
         computerStood = true;
         opponentMessage.innerHTML = `<strong>The computer has stood.</strong>`;
         opponentMessage.style.visibility = 'visible';
-        console.log('Both players have now stood.');
         evaluateWinner();
     } else if (turnOwner === 'player' && computerStood === true) {
         playerStood = true;
-        console.log('Both players have now stood.');
         evaluateWinner();
     } else {
         throw 'No condition matched within [stand()] function.';
     }
 }
 
+/**
+ * Asks for another card to be added to the player/computer's hand, 
+ * and calls switchTurn if the one player has not stood. 
+ */
 function hit() {
     dealCard();
-    // if (turnOwner === 'player') {
-    //     handleAce();
-    //     console.log('Aces were automatically handled for the player.');
-    // }
-
     if (computerStood === false || playerStood === false) {
         switchTurn();
         if (playerTotal === 21 && computerStood === true) {
@@ -434,13 +394,10 @@ function hit() {
 
 }
 
-// function drawCard() {
-//     let activeCard = chooseRandomCard();
-// }
-
 /**
  * Changes the riskValue variable depending how close the computerTotal
- * variable is to 21. 
+ * variable is to 21. Directly impacts how likely the computer is to 
+ * choose to call the hit function. 
  */
 function evaluateRisk() {
     if (turnOwner === 'computer') {
@@ -458,11 +415,11 @@ function evaluateRisk() {
             throw 'No condition matched [evaluateRisk()] function for riskValue assignment.';
         }
     }
-    console.log(`Risk value evaluated and set to ${riskValue}.`);
 }
 
 /**
- * Swaps the value of the turnOwner variable to the other player. 
+ * Swaps the value of the turnOwner variable to the other player, or calls 
+ * the evaluateWinner function if both have now stood. 
  */
 function switchTurn() {
     if (turnOwner === 'computer' && playerStood === false) {
@@ -473,42 +430,34 @@ function switchTurn() {
         if (computerStood === false) {
             opponentMessage.style.visibility = 'hidden';
         }
-        console.log(`The condition to change the turnOwner variable to "player" was matched. turnOwner = ${turnOwner}`);
     } else if (turnOwner === 'player' && computerStood === false) {
         turnOwner = 'computer';
-        console.log(`The condition to change the turnOwner variable to 'computer' was matched. turnOwner = ${turnOwner}`);
         if (playerStood === false) {
             playerMessage.style.visibility = 'hidden';
         }
         document.getElementById('opponent-message').style.visibility = 'visible';
         hitButton.removeEventListener('click', hit);
         standButton.removeEventListener('click', stand);
-        setTimeout(computerTurn, 3000); // this does not appear to be running automatically while nested in the setTimeout method
+        setTimeout(computerTurn, 3000);
     } else if (turnOwner === 'computer' && playerStood === true) {
-        console.log('Calling computerTurn() function from switchTurn() function...');
-        setTimeout(computerTurn, 3000); // this does not appear to be running automatically while nested in the setTimeout method
-    } else if (turnOwner === 'player' && computerStood === true) {
-        // console.log("It is the player's turn, and the computer has already stood.");
+        setTimeout(computerTurn, 3000);
     } else {
         evaluateWinner();
     }
-    console.log(`It is currently the ${turnOwner}'s turn.`);
 }
 
 /**
- * Evaluates the computerTotal variable, and decides the played
- * value of an ace based on the value returned. 
+ * Evaluates the computerTotal variable, and decides the
+ * value of an ace automatically based on hand total. 
  */
 function handleAce() {
     if (turnOwner === 'computer' && computerPlayedCards.includes('ace')) {
         if (computerTotal <= 10) {
             i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 11;
-            console.log("Ace was evaluated for CPU, and set as 11.")
         } else if (computerTotal >= 11) {
             i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 1;
-            console.log("Ace was evaluated for CPU, and set as 1.");
         } else {
             throw 'No condition was matched for handleAce() evaluation (computer).';
         }
@@ -517,11 +466,9 @@ function handleAce() {
         if (playerTotal <= 10) {
             i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 11;
-            console.log("Ace was evaluated for player, and set as 10.")
         } else if (playerTotal >= 11) {
             i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 1;
-            console.log("Ace was evaluated for player, and set as 1.")
         } else {
             throw 'No condition was matched for handleAce() evaluation (player).';
         }
@@ -535,38 +482,25 @@ function handleAce() {
 function evaluateWinner() {
     if (playerStood === true && computerStood === true) {
         if (playerTotal > computerTotal && playerTotal < 22) {
-
             playerScore++;
             document.getElementById('player-score').innerHTML = `<strong>Player Score: ${playerScore}</strong>`;
             resetVariables();
-            console.log('You won the round!');
-            // console.log('Starting new game automatically from evaluateWinner() function...');
-            // setTimeout(startGame, 3000); // automatically starts a new game after the round ends // THIS NEEDS TO BE REPLACED WITH A USER MESSAGE ASKING IF THEY WANT TO PLAY AGAIN
             hitButton.removeEventListener('click', hit);
             hitButton.innerText = 'PLAY AGAIN?';
             standButton.style.visibility = 'hidden';
             hitButton.addEventListener('click', startGame);
-            return;
         } else if (playerTotal < computerTotal && computerTotal < 22) {
             computerScore++;
             document.getElementById('computer-score').innerHTML = `<strong>Opponent Score: ${computerScore}</strong>`;
-            console.log('The computer won the round!');
             hitButton.removeEventListener('click', hit);
             hitButton.innerText = 'PLAY AGAIN?';
             standButton.style.visibility = 'hidden';
-            hitButton.addEventListener('click', startGame);
-            // console.log('Starting new game automatically from evaluateWinner() function...');
-            // setTimeout(startGame, 3000); // automatically starts a new game after the round ends // THIS NEEDS TO BE REPLACED WITH A USER MESSAGE ASKING IF THEY WANT TO PLAY AGAIN
-            return;
+            hitButton.addEventListener('click', startGame);return;
         } else if (playerTotal === computerTotal) {
-            console.log("It's a tie!");
             hitButton.removeEventListener('click', hit);
             hitButton.innerText = 'PLAY AGAIN?';
             standButton.style.visibility = 'hidden';
             hitButton.addEventListener('click', startGame);
-            // console.log('Starting new game automatically from evaluateWinner() function...');
-            // setTimeout(startGame, 3000); // automatically starts a new game after the round ends // THIS NEEDS TO BE REPLACED WITH A USER MESSAGE ASKING IF THEY WANT TO PLAY AGAIN
-            return;
         }
     }
 }

@@ -1,108 +1,284 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Blackjack
 
-Welcome SamuelMasters,
+## By Samuel Masters
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+![Front page as seen on different device screen sizes.](assets/images/responsive.png)
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+#### This project was developed to act as my first portfolio project, based on HTML/CSS Essentials, as part of my Diploma in Software Development with Code Institute.
 
-## Gitpod Reminders
+### [Click here to view the website.](https://samuelmasters.github.io/local-cleaners-ms1/)
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+### [Click here to view the public repository.](https://github.com/SamuelMasters/local-cleaners-ms1)
 
-`python3 -m http.server`
 
-A blue button should appear to click: _Make Public_,
+# Table of Contents:
 
-Another blue button should appear to click: _Open Browser_.
+1. [The Why](#the-why)
+2. [User Experience(UX)](#user-experience-UX)
+   1. [Target Audience](#target-audience)
+   2. [Strategy](#strategy)
+   3. [Scope](#scope)
+   4. [Structure](#structure)
+   5. [Skeleton](#skeleton)
+      1. [Wireframes](#wireframes)
+   6. [Surface](#surface)
+      1. [Colours](#colours)
+      2. [Typography](#typography)
+      3. [Images & Icons](#images-&-icons)
+3. [Features](#features)
+   1. [Current Features](#current-features)
+   2. [Future Features](#future-features)
+4. [Technologies](#technologies)
+5. [Testing](#testing)
+   1. [Tests](#tests)
+   2. [Bugs & Fixes](#bugs-&-fixes)
+6. [Deployment](#deployment)
+   1. [GitHub Pages](#github-pages)
+7. [Credits](#credits)
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+# The Why
 
-A blue button should appear to click: _Make Public_,
+The purpose of the website is to advertise the services of a fictional cleaning company, 'Marigolds', by providing the user with information on what the company does, the services they offer, testimonials from previous fictional clients, and contact details for interested users. 
 
-Another blue button should appear to click: _Open Browser_.
+# User Experience (UX)
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+## Target Audience
 
-To log into the Heroku toolbelt CLI:
+- People who are searching for cleaning services.
+- People who prefer clear and consise information.
+- People who live in their own house. 
+- People who manage shared working spaces, such as offices. 
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+## Strategy
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+To develop a website which provides users with the core information of why they might be interested in hiring this service. Simple, consistent styling with a 'clean' approach across all pages that helps users to quickly find and confirm the information they are searching for regarding the business and services offered.  
 
-------
+### Project Goals
 
-## Release History
+- To develop a static HTML/CSS only website which advertises the business. 
+- To provide pertinent information to visitors who may have been searching for cleaning services. 
+- To present that information in a way that is accessible and convenient for all users. 
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+## Scope:
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+The scope of the Marigolds website at the time of submission is as set out by the features below:
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- Consistent header across pages with prominent company logo and navbar with links to other page
+- Introductory information on home page including a call to action for users to learn more about the available services. 
+- Social icons pointing to placeholder addresses, including one which opens up the user's default mail client. 
+- Information around available services presented in a consistent, standardised format. 
+- Testimonial quotes from previous clients, with ratings portrayed for coloured star icons. 
+- Contact form with where users would be able to contact the business 'in-site'. 
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+If the project were to be revisited in the future, the following features would be considered:
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+- Light 'fade-in' animations on site content (excluding contact form).
+- Functional contact form that can submit a user-populated message template to an email address.
+- An in-site booking system for added convenience to users and business owners
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+## Structure
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+The website's structure has been designed to be straightforward and easily understandable to all users who see it, with intuitive learning in mind. The information provided is intended to be concise, and only focuses on important details. The navigation bar stays in a static position in the top-right so that users cannot get 'lost'. 
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+- Header
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+  - The company logo doubles as a link back to the home page of the site.
+  - The navbar has it's vertical centering matched against the company logo for visual consistency, and is present in the same place throughout all pages. 
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+- Home
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+  - Hero image which relates to the nature of the business, and invokes a positive emotional response.
+  - Heading with clear information about who the business is, what it offers, and a call to action to learn more. 
+  - Social icons presented lower down in the page, leading to social media accounts and direct email contact. 
+	
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+- Services
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+  - Information about three different service options, including price and features of each service. 
+  - Different icons per option to represent the different levels of service and help provide distinction between them. 
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+- Testimonials
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+  - Quotes from previous clients, with a large quote heading, client name, and date details.
+  - Star icons indicating the rating given by the customer. 
 
-------
+- Contact Us
 
-## FAQ about the uptime script
+  - Header including a call to action for the user to get in touch. 
+  - Contact form which enables the user to reach out to the business without having to go off-site. 
 
-**Why have you added this script?**
+## Skeleton
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+### Wireframes
 
-**How will this affect me?**
+- [Home](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/home-compressed.png)
+- [Services](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/services-compressed.png)
+- [Testimonials](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/testimonials-compressed.png)
+- [Contact Us](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/contact-compressed.png)
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+## Surface
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+### Colours
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+Only two main colours were utilised in the design of the website. The hex codes used are below: 
 
-**So….?**
+- #F0ECE3, an off-white colour, chosen for it's neutrality and simple background colouring. 
+- #302C2D, a dark charcoal colour, was used for all text content of the site. It was chosen as it provided good contrast with the site's universal background colour. 
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+The contrast between the two means that the text across the site remains easily readable for all users.
 
 ---
 
-Happy coding!
+### Typography
+
+The font [Karla](https://fonts.google.com/specimen/Karla?query=Karla) was used throughout the site. It was chosen for it highly-professional design and simple readability. 
+
+To keep with the theme of simplicity and minimalism, one single font was chosen to be used across the site, and visual variety was provided through sizing, letter spacing and weight. 
+
+For the logo in particular, extra letter-spacing was added to offer some subtle differentiation from the rest of the on-screen text. 
+
+---
+
+### Images & Icons
+
+Icons were used on three out of the four pages that comprise the website. All icons were sourced from [Font Awesome](https://fontawesome.com/). They were used for social media links, as well as providing visual indication of customer ratings. They were also utilised to help provide distinctions between services offered. 
+
+The only image used in the project was used on the front page, and was taken from [Pexels](https://www.pexels.com/photo/housekeepers-standing-back-to-back-and-smiling-9462614/) as a freely available stock image. It was used as a hero image on the front page, and was chosen to help provide users landing on the site's home page with a friendly first impression. 
+
+---
+
+# Features
+
+## Current Features
+
+- Functioning social icons, including a direct email option. 
+- Persistent header with navbar and company logo. 
+- Contact form for accepting user input. 
+- Concise presentation of information regarding services. 
+
+## Future Features
+
+- Add simple animation to page content to invoke a more positive reaction from users. 
+- An internal booking system integrated into the website itself, provide users with a way to book the service without leaving the site. 
+- Add genuine functionality to the contact form. 
+
+# Technologies
+
+## Languages
+
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
+## Other Technologies, Frameworks & Libraries
+
+- [Google Fonts](https://fonts.google.com/)
+  - Fonts were imported directly into the style sheet. 
+- [Font Awesome](https://fontawesome.com/)
+  - All icons used in the site were provided by Font Awesome.
+- [Balsamic](https://balsamiq.com/)
+  - Wireframes were created from original paper sketches, then to Balsamiq, and from there on were used as a reference when creating the core structure of each page. 
+- [Canva](https://www.canva.com/colors/color-wheel/)
+  - Canva's colour wheel was useful when researching what colours to use for the site. 
+- [Favicon.io](https://favicon.io/emoji-favicons/soap/)
+  - Favicon.io provided a compatible emoji to use for this site.
+- [Pexels](https://www.pexels.com/)
+  - Pexels was used to source the hero image used on the home page. 
+
+# Testing
+
+## Tests
+
+### [W3 HTML Validation](https://validator.w3.org/)
+
+All four HTML documents have passed with no errors. 
+- [Home](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Findex.html)
+- [Services](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Fservices.html)
+- [Testimonials](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Freviews.html)
+- [Contact Us](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Fcontact.html)
+
+### [Jigsaw CSS Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+
+This project's style.css document has been passed through the CSS validator with no errors, and successfully validates as CSS level 3 + SVG. 
+
+## Browser Compatibility
+The website was tested across Chrome, Firefox, and Edge browsers.
+
+- Chrome
+![Front page as seen on from the Google Chrome browser.](assets/testing/chrome-test.png)
+
+- Edge
+![Front page as seen from the Microsoft Edge browser.](assets/testing/edge-test.png)
+
+- Firefox
+![Front page as seen from the Mozilla Firefox browser](assets/testing/firefox-test.png)
+
+## Responsiveness
+
+This project utilised media queries to ensure that the website's design remains acceptable from screen sizes of 335px and upwards.
+
+## Bugs & Fixes
+
+1. Fixed -- W3 HTML Validator Errors
+   - When the project's HTML was first run through the validator, it returned an error due to usage of a paragraph tag nested within a unordered list element. This was initially done to provide a space to put the '|' operator in the navigation bar. To fix this error, I simply replaced the paragraph tags with additional list items tags to house the operator instead. 
+2. Unresolved -- W3 HTML Validator Warnings
+   - At the same time as seeing the errors being returned above, an additional warning was presented, specifying that a section within index.html should include a heading tag somewhere. The section in question however was only containing the hero image, and as such did not require a heading. Therefore, in this instance the warning was left unresolved, but the section was left in to keep semantic distinction.  
+3. Unresolved - Firefox Text Rendering
+   - During testing, the Firefox browser appeared to render the chosen font in a lighter, thinner style than intended. This appeared to be a problem exclusive to this particular browser, as this issue was not replicated on other browsers. After some research, it appears that the cause of the bug is a difference in the font-rendering engine used for Firefox compared to that of Edge and Chrome. Because of the nature of this issue, I was unable to standardise the font-weights across the browsers. The lighter font weight is consistent across the site on Firefox, however. 
+
+# Deployment
+
+## Gitpod
+GitPod was used as the IDE for this project. It can be setup via the following steps:
+1. Install the Gitpod browser extension [here](https://chrome.google.com/webstore/detail/gitpod-always-ready-to-co/dodmmooeoklaejobgleioelladacbeki).
+2. Navigate to your GitHub account and log in. 
+3. Navigate to your own repository. 
+4. Click the green 'Gitpod' button near the top of the page. 
+
+## Remote deployment
+
+GitHub Pages was used to deploy this project. 
+
+It was achieved via the following steps: 
+
+1. Navigate to your GitHub repository. 
+2. Click on 'Settings'. 
+3. On the left-hand navbar, click on 'Pages'. 
+4. Under 'Source', click on the dropdown menu, and select "main". 
+5. Click 'Save'. Wait a few minutes, refresh the page, and a link will be provided at the top of the page with a URL to your website. 
+
+## Cloning the repository
+
+If you wish to clone the repository to make a dynamic copy of this project, you may do so via the following steps: 
+
+1. Navigate to your GitHub account and log in. 
+2. Navigate to the [repository](https://github.com/SamuelMasters/local-cleaners-ms1). 
+3. Click 'Code', and on the dropdown menu, click the copy icon alongside the provided URL. 
+4. Open Gitpod in your own repository, and open a terminal. 
+5. Type 'git clone ' followed by the URL you copied in the previous steps.
+6. Press Enter to finish cloning of the repository.  
+
+## Forking the repository
+
+If you wish to fork the repository to make a static, independent copy of this project, you may do so via the following steps: 
+
+1. Navigate to your GitHub account and log in. 
+2. Navigate to the [repository](https://github.com/SamuelMasters/local-cleaners-ms1). 
+3. In the top-right corner, click 'Fork'. 
+4. You should now have a copy of the original repository amongst your other repositories. 
+
+Copying a repository in this way allows you to make changes to the code without affecting the original project, and can be useful for experimentation. 
+
+---
+
+# Credits
+
+1. [Code Institute](https://codeinstitute.net/)
+   - For providing me with the knowledge and resources to get to this point, which I would not have been able to do otherwise!
+2. [MDN Web Docs](https://developer.mozilla.org/en-US/)
+   - An incredibly useful reference which was used frequently throughout development of the website.
+3. [Chris Quinn](https://github.com/10xOXR)
+   - Chris' guidance and direction were a particular help with this, my first portfolio project. Thank you! 
+4. [Pexels](https://www.pexels.com/)
+   - The [main image](https://www.pexels.com/photo/housekeepers-standing-back-to-back-and-smiling-9462614/) used on the front page of this site was created by [Liliana Drew](https://www.pexels.com/@liliana-drew), and was found on Pexels. The image was marked as 'Free to Use' and was used in accordance with the site's [licensing rules](https://www.pexels.com/license/). 
+5. [Favicon.io](https://favicon.io/)
+   - The site's favicon was found on the website [favicon.io]() and was used in this project under the [Creative Commons 4.0 license](https://creativecommons.org/licenses/by/4.0/legalcode). The icon was available as part of the open source [Twemoji](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9fc.svg) project. 
