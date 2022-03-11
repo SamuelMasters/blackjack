@@ -10,7 +10,6 @@ let gridThree = document.getElementById('grid-item-3');
 let gridFour = document.getElementById('grid-item-4');
 let gridFive = document.getElementById('grid-item-5');
 let gridSix = document.getElementById('grid-item-6');
-let grids = [gridThree, gridFour, gridFive, gridSix];
 
 // Initial setup of event listeners
 document.addEventListener('DOMContentLoaded', function () {
@@ -50,7 +49,7 @@ function toggleRules() {
 // Initial declaration of global variables for use within functions. 
 let computerPlayedCards = []; // contains all cards dealth to computer in current round
 let humanPlayedCards = []; // contains all cards dealt to player in current round
-let turnOwner = undefined; // indicates who the current turn belongs to
+let turnOwner; // indicates who the current turn belongs to
 let computerTotal = 0; // the total of the computer's hand
 let playerTotal = 0; // the total of the player's hand
 let riskValue = 0; // this value will range from 0 - 1, increasing as the computer total approaches 21
@@ -84,7 +83,7 @@ function resetVariables() {
     hitButton.innerText = 'HIT';
     opponentMessage.innerHTML = `<strong>It is the computer's turn!</strong>`;
     opponentMessage.style.visibility = 'hidden';
-    playerMessage.innerHTML = `<strong>It is your turn.</strong>`
+    playerMessage.innerHTML = `<strong>It is your turn.</strong>`;
     standButton.removeEventListener('click', stand);
     computerPlayedCards = [];
     document.getElementById('computer-cards').innerText = computerPlayedCards;
@@ -453,10 +452,10 @@ function switchTurn() {
 function handleAce() {
     if (turnOwner === 'computer' && computerPlayedCards.includes('ace')) {
         if (computerTotal <= 10) {
-            i = computerPlayedCards.indexOf('ace');
+           let i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 11;
         } else if (computerTotal >= 11) {
-            i = computerPlayedCards.indexOf('ace');
+            let i = computerPlayedCards.indexOf('ace');
             computerPlayedCards[i] = 1;
         } else {
             throw 'No condition was matched for handleAce() evaluation (computer).';
@@ -464,10 +463,10 @@ function handleAce() {
     }
     if (turnOwner === 'player' && humanPlayedCards.includes('ace')) {
         if (playerTotal <= 10) {
-            i = humanPlayedCards.indexOf('ace');
+            let i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 11;
         } else if (playerTotal >= 11) {
-            i = humanPlayedCards.indexOf('ace');
+            let i = humanPlayedCards.indexOf('ace');
             humanPlayedCards[i] = 1;
         } else {
             throw 'No condition was matched for handleAce() evaluation (player).';

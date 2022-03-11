@@ -50,7 +50,7 @@ The purpose of the web application is to allow users to play quick rounds of a  
 
 ## Strategy
 
-To develop a web application that lets users quickly and easily jump into quick-fire rounds of blackjack, even for only a minute or two per session. Key information about how to play and how the application works are presented to the user on the landing page. 
+To use a mobile-first approach to develop a web application that lets users quickly and easily jump into quick-fire rounds of blackjack, even for only a minute or two per session. Key information about how to play and how the application works are presented to the user on the landing page. 
 
 ### Project Goals
 
@@ -92,38 +92,38 @@ The application's structure is very simply, and consists of only two main parts;
 
 ### Wireframes
 
-- [Mobile](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/home-compressed.png)
-- [Desktop](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/services-compressed.png)
-- [Functions](https://github.com/SamuelMasters/local-cleaners-ms1/blob/main/assets/wireframes/testimonials-compressed.png)
+Time was taken at the start of the project to determine how the interface might looks on mobile and desktop screen sizes. Additionally, the initial logic of how the game would work was considered and compiled into it's own simple text wireframe. 
+
+These provided the initial starting point for work to begin on the project, although the design of the interface and complexity of the functions changed quite a lot by the end. 
+
+- [Mobile](https://github.com/SamuelMasters/blackjack/blob/main/assets/wireframes/wireframe%20mobile-compressed.png)
+- [Desktop](https://github.com/SamuelMasters/blackjack/blob/main/assets/wireframes/wireframe-desktop-compressed.png)
+- [Functions](https://github.com/SamuelMasters/blackjack/blob/main/assets/wireframes/wireframe%20functions-compressed.png)
+
+
 
 ## Surface
 
 ### Colours
 
-Only two main colours were utilised in the design of the website. The hex codes used are below: 
+Two main colours were used for the design of the interface. 
 
-- #F0ECE3, an off-white colour, chosen for it's neutrality and simple background colouring. 
-- #302C2D, a dark charcoal colour, was used for all text content of the site. It was chosen as it provided good contrast with the site's universal background colour. 
-
-The contrast between the two means that the text across the site remains easily readable for all users.
+- #8AAD4C, an light green colour, chosen for it's resemblance to the colours one might expect to see on real casino tables (a thematic choice). 
+- #232323, a light shade of black, was used for all text content on the application. It contrasted well against the light green backdrop whilst still offering something sublty different from plain black text.  
 
 ---
 
 ### Typography
 
-The font [Karla](https://fonts.google.com/specimen/Karla?query=Karla) was used throughout the site. It was chosen for it highly-professional design and simple readability. 
+The font [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue?preview.text=Blackjack&preview.text_type=custom&preview.size=50) was used for the site's title in the banner, and was chosen for its striking letter sizing and naturally impactful style. A small amount of letter kerning was applied to this text to keep it easily readable.
 
-To keep with the theme of simplicity and minimalism, one single font was chosen to be used across the site, and visual variety was provided through sizing, letter spacing and weight. 
-
-For the logo in particular, extra letter-spacing was added to offer some subtle differentiation from the rest of the on-screen text. 
+For all other text content (including text within buttons), the [Open Sans Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed) font was used. At the time of writing this README however, this font is no longer visible on Google Fonts. Therefore, those interested in using a similar font could consider the [Open Sans](https://fonts.google.com/specimen/Open+Sans#standard-styles) font instead. 
 
 ---
 
 ### Images & Icons
 
-Icons were used on three out of the four pages that comprise the website. All icons were sourced from [Font Awesome](https://fontawesome.com/). They were used for social media links, as well as providing visual indication of customer ratings. They were also utilised to help provide distinctions between services offered. 
-
-The only image used in the project was used on the front page, and was taken from [Pexels](https://www.pexels.com/photo/housekeepers-standing-back-to-back-and-smiling-9462614/) as a freely available stock image. It was used as a hero image on the front page, and was chosen to help provide users landing on the site's home page with a friendly first impression. 
+No images or icons were used in this project, except for the Favicon, which was sourced from the [Favicon](https://favicon.io/emoji-favicons/spade-suit) website.
 
 ---
 
@@ -131,16 +131,17 @@ The only image used in the project was used on the front page, and was taken fro
 
 ## Current Features
 
-- Functioning social icons, including a direct email option. 
-- Persistent header with navbar and company logo. 
-- Contact form for accepting user input. 
-- Concise presentation of information regarding services. 
+- Written information informing the user how to play.  
+- Score tracking for both the player and computer, showing how many rounds have been won. 
+- A 'reset' button at the top of the page which enables the user to reset the scores and start fresh. 
+- Two buttons which allow the user to choose whether to hit or stand on their turn.  
+- Automatic handling of the computer's turns, with a basic, limited strategy taken into account. 
 
 ## Future Features
 
-- Add simple animation to page content to invoke a more positive reaction from users. 
-- An internal booking system integrated into the website itself, provide users with a way to book the service without leaving the site. 
-- Add genuine functionality to the contact form. 
+- Imagery of cards, showing their numerical value and suit. 
+- 'Soft' animations of values being added or updated on the interface. 
+- 'Difficulty' options that the player can choose to make the computer play more aggressively or more conservatively. 
 
 # Technologies
 
@@ -148,21 +149,18 @@ The only image used in the project was used on the front page, and was taken fro
 
 - [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML)
 - [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ## Other Technologies, Frameworks & Libraries
 
 - [Google Fonts](https://fonts.google.com/)
   - Fonts were imported directly into the style sheet. 
-- [Font Awesome](https://fontawesome.com/)
-  - All icons used in the site were provided by Font Awesome.
-- [Balsamic](https://balsamiq.com/)
-  - Wireframes were created from original paper sketches, then to Balsamiq, and from there on were used as a reference when creating the core structure of each page. 
+- [Balsamiq](https://balsamiq.com/)
+  - Wireframes were created directly on Balsamiq, and were used to create an initial guiding target at the start of the project's development.  
 - [Canva](https://www.canva.com/colors/color-wheel/)
-  - Canva's colour wheel was useful when researching what colours to use for the site. 
+  - The colour wheel on Canva was used to search around for nicely contrasting colours and the ideal shade of green desired for the project. 
 - [Favicon.io](https://favicon.io/emoji-favicons/soap/)
-  - Favicon.io provided a compatible emoji to use for this site.
-- [Pexels](https://www.pexels.com/)
-  - Pexels was used to source the hero image used on the home page. 
+  - Favicon.io provided a compatible emoji to use for this site. 
 
 # Testing
 
@@ -170,13 +168,10 @@ The only image used in the project was used on the front page, and was taken fro
 
 ### [W3 HTML Validation](https://validator.w3.org/)
 
-All four HTML documents have passed with no errors. 
-- [Home](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Findex.html)
-- [Services](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Fservices.html)
-- [Testimonials](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Freviews.html)
-- [Contact Us](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Fcontact.html)
+The single HTML document in this project passed with no errors. . 
+- [Index](https://validator.w3.org/nu/?doc=https%3A%2F%2Fsamuelmasters.github.io%2Fblackjack%2F)
 
-### [Jigsaw CSS Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fsamuelmasters.github.io%2Flocal-cleaners-ms1%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+### [Jigsaw CSS Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fsamuelmasters.github.io%2Fblackjack%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 This project's style.css document has been passed through the CSS validator with no errors, and successfully validates as CSS level 3 + SVG. 
 
