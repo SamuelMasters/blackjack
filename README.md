@@ -166,6 +166,10 @@ No images or icons were used in this project, except for the Favicon, which was 
 
 ## Tests
 
+### Chrome DevTools
+
+Extensive use was made of the Chrome DevTools debugger, which allowed for slow 'stepping-through' of the code, and for subsequent identification of the causes of unexpected behaviours. Breakpoints were triggered at the point when a user would start a new round, or interact with the game interface by choosing to hit or stand. 
+
 ### [W3 HTML Validation](https://validator.w3.org/)
 
 The single HTML document in this project passed with no errors. 
@@ -257,10 +261,12 @@ Copying a repository in this way allows you to make changes to the code without 
 # Credits
 
 1. [Code Institute](https://codeinstitute.net/)
-   - For providing me with the knowledge and resources to get to this point, which I would not have been able to do otherwise!
-2. [MDN Web Docs](https://developer.mozilla.org/en-US/)
-   - An incredibly useful reference which was used frequently throughout development of the website.
+   - For providing me with the knowledge and skills to develop this project, and for supporting my learning journey. 
+2. [W3Schools](https://www.w3schools.com/)
+   - This website provided a handy, quick reference for checking syntax of the JavaScript included in this project. 
 3. [Chris Quinn](https://github.com/10xOXR)
    - Chris' guidance and direction were a particular help with this, my first portfolio project. Thank you!  
 4. [Favicon.io](https://favicon.io/)
-   - The site's favicon was found on the website [favicon.io]() and was used in this project under the [Creative Commons 4.0 license](https://creativecommons.org/licenses/by/4.0/legalcode). The icon was available as part of the open source [Twemoji](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9fc.svg) project. 
+   - The site's favicon was found on the website [favicon.io](https://favicon.io/) and was used in this project under the [Creative Commons 4.0 license](https://creativecommons.org/licenses/by/4.0/legalcode). The icon was available as part of the open source [Twemoji](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9fc.svg) project. 
+4. [Tutorial Republic](https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php)
+   - This page helped me to understand how to find the sum of an numerical array, and their code example was adapted for use in my own work (comments annotate this code in the script.js file). 
