@@ -77,7 +77,7 @@ If the project were to be revisited in the future, the following features would 
 
 ## Structure
 
-The application's structure is very simply, and consists of only two main parts; the rules, and the game interface itself, with a simple persistent banner.
+The application's structure is very simple, and consists of only two main parts; the rules, and the game interface itself, with a simple persistent banner.
 
 - How to Play / Rules
 
@@ -211,7 +211,13 @@ This project was created with a mobile-first approach, meaning that the layout a
    - During the first round of validation, an error was returned which indicated that paragraph tags were being used incorrectly, as they contained other block-level elements within them. I resolved this error by replacing the parent elements with a section element instead of the paragraph element. 
 2. Fixed -- Looping functions
    - The debugging process showed that functions were being called at the end of each round of the game when they were not supposed to, which meant at one point the game was looping itself unendingly. The was fixed by changing the order in which functions were called in the code, and refactoring some of the functions themselves to reduce multiple calls to the same function.  
-
+3. Fixed -- Undetected 'blackjacks'
+   - Extensive testing showed that when either player received the cards necessary for a 'blackjack' (any '10' card with an ace) on the opening deal, this wasn't being detected 
+   as it should have been. The reason for this was that the 'royal' cards had not been converted to their numerical equivalents before this evaluation took place. This solution was to add in a call into the startGame function which handles these cards before the blackjack evaluation took place. 
+4. Fixed -- Multiple computer turns running simultaneously
+   - At one point, the computerTurn function was being called multiple times in what was meant to be one singluar turn for the computer, which resulted in unexpected behaviours and confusing changes to the game interface as the DOM was being updated. Reviewing the code allowed me to identify where in the process the function was being re-called, and the solution was to then remove that instance of it being called so that the function was only ever called once at a time. 
+5. Fixed -- Aces not being handled correctly during opening deal 
+   - A key function, handleAce, was incorrectly using restrictive conditions in its handling of aces for both the player and computer. It was set to only handle aces for the player whom the current turn belonged to. The solution was to change to the conditional statements within the function so that it evaluated both the player's and the computer's hands every time the function was called. 
 
 # Deployment
 
