@@ -81,7 +81,7 @@ The application's structure is very simple, and consists of only two main parts;
 
 - How to Play / Rules
 
-  - Text content informs the user on what the game is, how it is played and won, and how they can interact with the game by via the 'Hit' and 'Stand' buttons. 
+  - Text content informs the user on what the game is, how it is played and won, and how they can interact with the game via the 'Hit' and 'Stand' buttons. 
 
 - Game Interface
 
@@ -190,7 +190,7 @@ This project's style.css document has been passed through the CSS validator with
 The JavaScript code written for this project was passed through JSHint, a code analysis tool, and returned no errors. It did, however, return a substantial amount of warnings regarding syntax used that was only compatible with ECMAScript 2015 / ES6. There were two features used that triggered these warnings, the use of the 'let' variable declaration keyword, and the use of template literals. If JSHint is configured to assume 'New JavaScript features' however, the code passes with no warnings. 
 
 ## Browser Compatibility
-The website was tested across Chrome, Firefox, and Edge browsers.
+The website was tested across Chrome, Firefox, and Edge browsers and the applications' styling remained consistent across these browsers. 
 
 - Chrome
 ![Game interface as seen on from the Google Chrome browser.](assets/testing/chrome-browser.png)
@@ -203,14 +203,14 @@ The website was tested across Chrome, Firefox, and Edge browsers.
 
 ## Responsiveness
 
-This project was created with a mobile-first approach, meaning that the layout and design was designed with a mobile screen first. Media queries were used to make the content adapt to larger screen sizes. 
+This project was created with a mobile-first approach, meaning that the layout and design was designed with a mobile screen first. Media queries were used to make the content adapt to larger screen sizes. The application was designed to be responsive from 500px gradually up to 1500px and higher. 
 
 ## Bugs & Fixes
 
 1. Fixed -- W3 HTML Validator Errors
    - During the first round of validation, an error was returned which indicated that paragraph tags were being used incorrectly, as they contained other block-level elements within them. I resolved this error by replacing the parent elements with a section element instead of the paragraph element. 
 2. Fixed -- Looping functions
-   - The debugging process showed that functions were being called at the end of each round of the game when they were not supposed to, which meant at one point the game was looping itself unendingly. The was fixed by changing the order in which functions were called in the code, and refactoring some of the functions themselves to reduce multiple calls to the same function.  
+   - The debugging process showed that functions were being called at the end of each round of the game when they were not supposed to, which meant at one point the game was looping itself endlessly. The was fixed by changing the order in which functions were called in the code, and refactoring some of the functions themselves to reduce multiple calls to the same function.  
 3. Fixed -- Undetected 'blackjacks'
    - Extensive testing showed that when either player received the cards necessary for a 'blackjack' (any '10' card with an ace) on the opening deal, this wasn't being detected 
    as it should have been. The reason for this was that the 'royal' cards had not been converted to their numerical equivalents before this evaluation took place. This solution was to add in a call into the startGame function which handles these cards before the blackjack evaluation took place. 
@@ -273,7 +273,7 @@ Copying a repository in this way allows you to make changes to the code without 
 2. [W3Schools](https://www.w3schools.com/)
    - This website provided a handy, quick reference for checking syntax of the JavaScript included in this project. 
 3. [Chris Quinn](https://github.com/10xOXR)
-   - Chris' guidance and direction were a particular help with this, my first portfolio project. Thank you!  
+   - A big thank you to Chris, who's advice has been invaluable whilst working on this project.   
 4. [Favicon.io](https://favicon.io/)
    - The site's favicon was found on the website [favicon.io](https://favicon.io/) and was used in this project under the [Creative Commons 4.0 license](https://creativecommons.org/licenses/by/4.0/legalcode). The icon was available as part of the open source [Twemoji](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9fc.svg) project. 
 4. [Tutorial Republic](https://www.tutorialrepublic.com/faq/how-to-find-the-sum-of-an-array-of-numbers-in-javascript.php)
