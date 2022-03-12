@@ -163,7 +163,7 @@ function hardReset() {
  * it from the array, and then returns it as randomCard variable
  */
 function chooseRandomCard() {
-    let randomIndex = Math.floor(Math.random() * cardDeck.length); // does this need to change to Math.round instead?
+    let randomIndex = Math.floor(Math.random() * cardDeck.length);
     let randomCard = cardDeck[randomIndex];
     cardDeck.splice(randomIndex, 1);
     return randomCard;
