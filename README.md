@@ -218,6 +218,8 @@ This project was created with a mobile-first approach, meaning that the layout a
    - At one point, the computerTurn function was being called multiple times in what was meant to be one singluar turn for the computer, which resulted in unexpected behaviours and confusing changes to the game interface as the DOM was being updated. Reviewing the code allowed me to identify where in the process the function was being re-called, and the solution was to then remove that instance of it being called so that the function was only ever called once at a time. 
 5. Fixed -- Aces not being handled correctly during opening deal 
    - A key function, handleAce, was incorrectly using restrictive conditions in its handling of aces for both the player and computer. It was set to only handle aces for the player whom the current turn belonged to. The solution was to change to the conditional statements within the function so that it evaluated both the player's and the computer's hands every time the function was called. 
+6. Unresolved -- Overlayed text on 'How to Play' section
+   - At submission, there is a bug where if text been made visible through DOM manipulation on the game interface, switching to the 'how to play' section by clicking the 'rules' button does not completely hide some of the text from the interface, which should be hidden. Testing has not provided an answer as to why this is happening, and the cause of the bug has not yet been identified. 
 
 # Deployment
 
